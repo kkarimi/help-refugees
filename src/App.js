@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import logo from './logo.png'
 import './App.css'
-import Form from './components/Form'
 import * as firebase from 'firebase'
+import 'react-select/dist/react-select.css'
+
+import Form from './components/Form'
+// import Organisations from './components/Organisations'
 
 var config = {
   apiKey: 'AIzaSyAec6n7bh_dhRuxZYxEGocCXyLJb6NpNfc',
@@ -51,28 +54,31 @@ class App extends Component {
   }
 
   render () {
-    const { user, organisations } = this.state
+    const { user, organisations } = this.state // eslint-disable-line
 
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <div className="pull-right">
+            { !user ? (<div><button className="btn btn-default" onClick={this.signIn}>Sign In</button></div>) : null}
+            { user ? (<div><button className="btn btn-default" onClick={this.signOut}>Sign Out</button></div>) : null}
+          </div>
         </div>
-        <main className="ui grid">
-          { !user ? (<div><button onClick={this.signIn}>Sign In</button></div>) : null}
-          { user ? (<div><button onClick={this.signOut}>Sign Out</button></div>) : null}
+        <main className="container" style={{paddingTop: '1rem'}}>
           {
             user
               ? (
                 <div>
-                  <h3>Posts</h3>
-                  <ul>
-                    {Object.keys(organisations).map((k) => <li key={k}>{organisations[k].organisation_name}</li>)}
-                  </ul>
+                  {/* <Organisations organisations={organisations} /> */}
                   <Form />
                 </div>
               )
-              : null
+              : (
+                <div>
+                  <h3> You must sign in by clicking the button above in order to view form. </h3>
+                </div>
+              )
           }
         </main>
       </div>

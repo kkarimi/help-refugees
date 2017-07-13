@@ -26,15 +26,10 @@ class SelectField extends PureComponent {
     this.props.handleChange(this.props.name, values)
   }
 
-  componentDidMount () {
-    // $(this.refs.dropdown).dropdown({ width: '300px' })
-  }
-
   render () {
     return (
       <select
         name={this.props.name}
-        multiple
         className="ui fluid dropdown"
         ref="dropdown"
         onChange={this.handleChange}
