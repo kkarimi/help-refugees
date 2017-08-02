@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { Link } from 'react-router-dom'
 import Callback from '../Callback/Callback'
 
 class Organisations extends PureComponent {
@@ -53,13 +52,13 @@ class Organisations extends PureComponent {
                             : null
                           }</td>
                           <td>
-                            <button className="btn btn-default">
-                              <Link to={{
-                                pathname: '/form',
-                                state: { record: org }
-                              }}>
-                                Edit
-                              </Link>
+                            <button
+                              className="btn btn-default"
+                              onClick={() => {
+                                this.props.history.push('/form', { record: org })
+                              }}
+                            >
+                              Edit
                             </button>
                           </td>
                         </tr>
@@ -75,4 +74,5 @@ class Organisations extends PureComponent {
     )
   }
 }
+
 export default Organisations
