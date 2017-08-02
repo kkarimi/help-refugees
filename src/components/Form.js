@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import moment from 'moment'
 import InputField from './InputField'
 import { serviceTypes, organisationTypes } from './constants'
 import * as firebase from 'firebase'
@@ -18,6 +19,7 @@ class NewRecord extends PureComponent {
   }
 
   handleSubmit (event) {
+    const { record } = this.state
     event.preventDefault()
     const newForm = firebase.database().ref('organisations').push() // eslint-disable-line
 
@@ -28,7 +30,11 @@ class NewRecord extends PureComponent {
     $button.button('loading')
 
     newForm
-      .set(this.state.record)
+      .set({
+        ...record,
+        created: record.created || moment().toDate(),
+        expiry: record.expiry || moment().add(30, 'days').toDate()
+      })
       .then(() => {
         this.setState({ submitting: false, record: {} })
         $button.button('reset')

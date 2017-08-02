@@ -106,5 +106,7 @@
       "$": true
     }
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "moment": "^2.18.1"
+  }
 }
