@@ -62,7 +62,15 @@ class NewRecord extends PureComponent {
     return (
       <div className="col-sm-8 col-sm-offset-2">
         <div className="panel panel-default">
-          <div className="panel-heading">New Organisation/Service</div>
+          <div className="panel-heading">
+            New Organisation/Service
+            <button
+              className="btn btn-default pull-right"
+              onClick={() => this.props.history.push('/organisations')}
+            >
+              Cancel
+            </button>
+          </div>
             <div className="panel-body">
               <form
                 action="#"
