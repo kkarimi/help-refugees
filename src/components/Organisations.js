@@ -53,10 +53,10 @@ class Organisations extends PureComponent {
   }
 
   markAsDone (org) {
-    const ref = this.props.db.ref(`organisations/${org.uid}/selfAssign`)
+    const ref = this.props.db.ref(`organisations/${org.uid}`)
 
     ref
-      .remove()
+      .update({ status: 'verified', selfAssign: null })
       .then(() => this.updateOrganisations())
       .catch(() => {})
   }
@@ -87,13 +87,39 @@ class Organisations extends PureComponent {
     }
   }
 
+  getButtonForSelfAssignedOrganisation (org) {
+    // return (
+    //   user.email === org.selfAssign
+    //   ? (
+    //     <Button
+    //       styleType="success"
+    //       style={{ width: '210px', marginBottom: '0.2rem' }}
+    //       onClick={this.markAsDone.bind(this, org)}
+    //     >
+    //       Mark As Done
+    //     </Button>
+    //   )
+    //   : (
+    //     <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
+    //       Assigned to: {org.selfAssign}
+    //     </Button>
+    //   )
+    // )
+
+    return (
+      <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
+        Assigned to: {org.selfAssign}
+      </Button>
+    )
+  }
+
   componentWillMount () {
     this.updateOrganisations()
   }
 
   render () {
     const { organisations, isLoading } = this.state
-    const { admin, user } = this.props
+    const { admin } = this.props
     const uids = Object.keys(organisations)
 
     return (
@@ -158,23 +184,8 @@ class Organisations extends PureComponent {
                           <td>
                             {
                               org.selfAssign
-                              ? (
-                                user.email === org.selfAssign
-                                ? (
-                                  <Button
-                                    styleType="success"
-                                    style={{ width: '210px', marginBottom: '0.2rem' }}
-                                    onClick={this.markAsDone.bind(this, org)}
-                                  >
-                                    Mark As Done
-                                  </Button>
-                                )
-                                : (
-                                  <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
-                                    Assigned to: {org.selfAssign}
-                                  </Button>
-                                )
-                              ) : (
+                              ? (this.getButtonForSelfAssignedOrganisation(org))
+                              : (
                                 <Button
                                   styleType="success"
                                   style={{ width: '210px' }}
