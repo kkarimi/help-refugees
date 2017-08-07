@@ -74,6 +74,19 @@ class Organisations extends PureComponent {
     })
   }
 
+  getStatusText (status) {
+    switch (status) {
+      case 'in_progress':
+        return 'In Progress'
+      case 'needs_review':
+        return 'Needs Review'
+      case 'verified':
+        return 'Verified'
+      default:
+        return ''
+    }
+  }
+
   componentWillMount () {
     this.updateOrganisations()
   }
@@ -123,7 +136,7 @@ class Organisations extends PureComponent {
 
                       return (
                         <tr key={i}>
-                          <td>{ org.status }</td>
+                          <td>{ this.getStatusText(org.status) }</td>
                           <td>{moment(org.updated).format('MMM Do YY')}</td>
                           <td>{moment(org.expiry).format('MMM Do YY')}</td>
                           <td>{org.organisation_name}</td>
