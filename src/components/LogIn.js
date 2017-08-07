@@ -43,11 +43,21 @@ class Login extends Component {
         <form onSubmit={this.handleSubmit} style={{marginTop: '2em'}}>
           <fieldset>
             <label htmlFor="email">Email</label>
-            <input className="form-control" type="text" value={this.state.email} onChange={e => this.setState({email: e.target.value})} />
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.email || ''}
+              onChange={e => this.setState({ email: e.target.value })}
+            />
           </fieldset>
           <fieldset style={{marginTop: '0.5em'}}>
             <label htmlFor="password">Password</label>
-            <input className="form-control" type="password" value={this.state.password} onChange={e => this.setState({password: e.target.value})} />
+            <input
+              className="form-control"
+              type="password"
+              value={this.state.password || ''}
+              onChange={e => this.setState({ password: e.target.value })}
+            />
           </fieldset>
           <fieldset style={{marginTop: '1em'}}>
             <button className="btn btn-default" type="submit">Sign In</button>
