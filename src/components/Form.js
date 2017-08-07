@@ -50,7 +50,9 @@ class NewRecord extends PureComponent {
       // {Number} expiry      - Unix time 30 days after record was updated
       expiry: record.expiry || time(moment().add(30, 'days')),
       // {String} updated_by  - Email of user who last updated record
-      updated_by: this.props.user.email
+      updated_by: this.props.user.email,
+      // {String} status      - The current state of the organisation
+      status: this.props.user.trusted ? 'verified' : 'needs_review'
     }
 
     newForm
