@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import moment from 'moment'
 import InputField from './InputField'
-import { serviceTypes, organisationTypes } from './constants'
+import { serviceTypes } from './constants'
 import * as firebase from 'firebase'
 import Select from 'react-select'
 import './Form.css'
