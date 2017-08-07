@@ -4,7 +4,7 @@ import InputField from './InputField'
 import { serviceTypes } from './constants'
 import * as firebase from 'firebase'
 import Select from 'react-select'
-import './Form.css'
+import './OrganisationForm.css'
 
 class NewRecord extends PureComponent {
   constructor (props) {

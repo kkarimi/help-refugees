@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Redirect, Route, BrowserRouter, Switch } from 'react-router-dom'
 import history from './history'
 import { auth, db } from './firebase'
-import Form from './components/Form'
+
 import Organisations from './components/Organisations'
+import OrganisationForm from './components/OrganisationForm'
+
 import LogIn from './components/LogIn'
 import SignUp from './components/UserForm'
 import Callback from './Callback/Callback'
@@ -27,6 +29,7 @@ class App extends Component {
       this.setState({
         user,
         isLoadingUser: false,
+        admin: user && user.uid === '4msl5mEv5FZRi68RMTlDauHVV3T2'
       })
     })
   }
@@ -79,7 +82,7 @@ class App extends Component {
                   {/* <Route path="/home" render={(props) => <Home auth={auth} {...props} />} /> */}
                   <MatchWhenNotAuthorized path="/login" component={LogIn} />
                   <MatchWhenNotAuthorized path="/signup" component={SignUp} />
-                  <MatchWhenAuthorized path="/form" component={Form} />
+                  <MatchWhenAuthorized path="/form" component={OrganisationForm} />
                   <MatchWhenAuthorized path="/organisations" component={Organisations} />
                   <MatchWhenAuthorized path="/" component={Organisations} />
                   {/* <MatchWhenAuthorized pattern="/profile" component={Profile} /> */}
