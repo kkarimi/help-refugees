@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import Callback from '../Callback/Callback'
-
+import Button from './Button'
 class Organisations extends PureComponent {
   state = {
     organisations: {},
@@ -131,14 +131,13 @@ class Organisations extends PureComponent {
                           </td>
                           <td>{ org.updated_by }</td>
                           <td>
-                            <button
-                              className="btn btn-default"
+                            <Button
                               onClick={() => {
                                 this.props.history.push('/form', { record: org })
                               }}
                             >
                               Edit
-                            </button>
+                            </Button>
                             {
                               admin &&
                               (
