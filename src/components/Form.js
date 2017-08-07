@@ -111,7 +111,7 @@ class NewRecord extends PureComponent {
                     <InputField
                       name="organisation_name"
                       value={record.organisation_name}
-                      handleChange={this.onFieldChange}
+                      onChange={this.onFieldChange}
                     />
                   </div>
 
@@ -140,38 +140,38 @@ class NewRecord extends PureComponent {
                   {/**
                     <div className="form-group">
                       <label htmlFor="region"> Region </label>
-                      <InputField name="region" handleChange={this.onFieldChange}/>
+                      <InputField name="region" onChange={this.onFieldChange}/>
                     </div>
                    */}
 
                   <div className="form-group">
                     <label htmlFor="city"> City </label>
-                    <InputField name="city" handleChange={this.onFieldChange}/>
+                    <InputField name="city" onChange={this.onFieldChange}/>
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="address"> Address </label>
-                    <InputField name="address" handleChange={this.onFieldChange}/>
+                    <InputField name="address" onChange={this.onFieldChange}/>
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="post_code"> Post Code</label>
-                    <InputField name="post_code" handleChange={this.onFieldChange}/>
+                    <InputField name="post_code" onChange={this.onFieldChange}/>
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="phone_number"> Phone Number </label>
-                    <InputField name="phone_number" type='tel' handleChange={this.onFieldChange}/>
+                    <InputField name="phone_number" type='tel' onChange={this.onFieldChange}/>
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="url"> Url </label>
-                    <InputField name="url" type='url' handleChange={this.onFieldChange}/>
+                    <InputField name="url" type='url' onChange={this.onFieldChange}/>
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="email"> Email </label>
-                    <InputField name="email" type="email" handleChange={this.onFieldChange} />
+                    <InputField name="email" type="email" onChange={this.onFieldChange} />
                   </div>
 
                   <div className="form-group">
@@ -182,12 +182,12 @@ class NewRecord extends PureComponent {
                       In a few sentences, provide details explaining
                       what the service is and what they offer in clear, simple language.
                     </small>
-                    <InputField name="service_details" handleChange={this.onFieldChange} />
+                    <InputField name="service_details" onChange={this.onFieldChange} />
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="opening_hours">Opening Hours</label>
-                    <InputField name="opening_hours" handleChange={this.onFieldChange} />
+                    <InputField name="opening_hours" onChange={this.onFieldChange} />
                   </div>
 
                   {/*
@@ -195,25 +195,25 @@ class NewRecord extends PureComponent {
                       <label htmlFor="intended_service_user">
                         Intended Service User (Refugees; Asylum Seekers; Volunteers; etc)
                       </label>
-                      <InputField name="intended_service_user" handleChange={this.onFieldChange}/>
+                      <InputField name="intended_service_user" onChange={this.onFieldChange}/>
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="nationalities_served"> Nationalities served </label>
-                      <InputField name="nationalities_served" handleChange={this.onFieldChange} />
+                      <InputField name="nationalities_served" onChange={this.onFieldChange} />
                     </div>
 
                     <div className="form-group">
                       <label htmlFor="limitations">
                         Limitations/ Capacity (e.g very small group/ waiting time 6 weeks)
                       </label>
-                      <InputField name="limitations" handleChange={this.onFieldChange} />
+                      <InputField name="limitations" onChange={this.onFieldChange} />
                     </div>
                   */}
 
                   <div className="form-group">
                     <label htmlFor="volunteer_need"> Volunteer Need </label>
-                    <InputField name="volunteer_need" handleChange={this.onFieldChange} />
+                    <InputField name="volunteer_need" onChange={this.onFieldChange} />
                   </div>
                 </div>
                 <button
