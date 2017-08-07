@@ -8,11 +8,6 @@ class Login extends Component {
     redirectToReferrer: false
   }
 
-  constructor (props) {
-    super(props)
-    this.signIn = this.signIn.bind(this)
-  }
-
   handleSubmit = (evt) => {
     evt.preventDefault()
     this.props.auth.signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
