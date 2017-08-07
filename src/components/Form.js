@@ -88,7 +88,7 @@ class NewRecord extends PureComponent {
     return (
       <div className="col-sm-8 col-sm-offset-2">
         <div className="panel panel-default">
-          <div className="panel-heading">
+          <div className="panel-heading" style={{height: '55px', fontSize: '2.4rem'}}>
             New Organisation/Service
             <button
               className="btn btn-default pull-right"
