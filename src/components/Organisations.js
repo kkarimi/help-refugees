@@ -47,7 +47,7 @@ class Organisations extends PureComponent {
     const ref = this.props.db.ref(`organisations/${org.uid}`)
 
     ref
-      .update({ selfAssign: this.props.user.email })
+      .update({ selfAssign: this.props.user.email, status: 'in_progress' })
       .then(() => this.updateOrganisations())
       .catch(() => {})
   }
