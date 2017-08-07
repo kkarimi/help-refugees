@@ -13,8 +13,14 @@ class NewRecord extends PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.onSelectChange = this.onSelectChange.bind(this)
 
+    /**
+     * State will only be defined if a state object is passed to
+     * history.push()
+     */
+    const { state } = props.location
+
     this.state = {
-      record: props.location.state.record || {}
+      record: state ? state.record || {} : {}
     }
   }
 
