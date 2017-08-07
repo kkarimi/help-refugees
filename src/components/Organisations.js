@@ -103,6 +103,7 @@ class Organisations extends PureComponent {
             <table className="table">
               <thead>
                 <tr>
+                  <th>Status</th>
                   <th>Last Updated</th>
                   <th>Expiry Date</th>
                   <th>Name</th>
@@ -122,6 +123,7 @@ class Organisations extends PureComponent {
 
                       return (
                         <tr key={i}>
+                          <td>{ org.status }</td>
                           <td>{moment(org.updated).format('MMM Do YY')}</td>
                           <td>{moment(org.expiry).format('MMM Do YY')}</td>
                           <td>{org.organisation_name}</td>
