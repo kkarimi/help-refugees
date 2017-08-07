@@ -1,5 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-export default ({ children, ...props }) => (
-  <button className="btn btn-default" {...props}>{children}</button>
+const Button = ({ children, styleType, ...props }) => (
+  <button className={`btn btn-${styleType || 'default'}`} {...props}>{children}</button>
 )
+
+Button.propTypes = {
+  styleType: PropTypes.string
+}
+
+export default Button

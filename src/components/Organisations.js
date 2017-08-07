@@ -132,6 +132,13 @@ class Organisations extends PureComponent {
                           <td>{ org.updated_by }</td>
                           <td>
                             <Button
+                              styleType="success"
+                              style={{ width: '210px' }}
+                              onClick={this.selfAssign.bind(this, org)}
+                            >
+                              Self-assign
+                            </Button>
+                            <Button
                               onClick={() => {
                                 this.props.history.push('/form', { record: org })
                               }}
@@ -141,23 +148,21 @@ class Organisations extends PureComponent {
                             {
                               admin &&
                               (
-                                <button
-                                  className="btn btn-default"
+                                <Button
                                   onClick={this.validateRecord.bind(this, org)}
                                 >
                                   Validate
-                                </button>
+                                </Button>
                               )
                             }
                             {
                               admin &&
                               (
-                                <button
-                                  className="btn btn-default"
+                                <Button
                                   onClick={this.deleteRecord.bind(this, org)}
                                 >
                                   Delete
-                                </button>
+                                </Button>
                               )
                             }
                           </td>
