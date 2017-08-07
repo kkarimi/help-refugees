@@ -52,6 +52,15 @@ class Organisations extends PureComponent {
       .catch(() => {})
   }
 
+  markAsDone (org) {
+    const ref = this.props.db.ref(`organisations/${org.uid}/selfAssign`)
+
+    ref
+      .remove()
+      .then(() => this.updateOrganisations())
+      .catch(() => {})
+  }
+
   updateOrganisations () {
     this.setState({ isLoading: true })
 
@@ -71,7 +80,7 @@ class Organisations extends PureComponent {
 
   render () {
     const { organisations, isLoading } = this.state
-    const { admin } = this.props
+    const { admin, user } = this.props
     const uids = Object.keys(organisations)
 
     return (
@@ -132,13 +141,34 @@ class Organisations extends PureComponent {
                           </td>
                           <td>{ org.updated_by }</td>
                           <td>
-                            <Button
-                              styleType="success"
-                              style={{ width: '210px' }}
-                              onClick={this.selfAssign.bind(this, org)}
-                            >
-                              Self-assign
-                            </Button>
+                            {
+                              org.selfAssign
+                              ? (
+                                user.email === org.selfAssign
+                                ? (
+                                  <Button
+                                    styleType="success"
+                                    style={{ width: '210px', marginBottom: '0.2rem' }}
+                                    onClick={this.markAsDone.bind(this, org)}
+                                  >
+                                    Mark As Done
+                                  </Button>
+                                )
+                                : (
+                                  <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
+                                    Assigned to: {org.selfAssign}
+                                  </Button>
+                                )
+                              ) : (
+                                <Button
+                                  styleType="success"
+                                  style={{ width: '210px' }}
+                                  onClick={this.selfAssign.bind(this, org)}
+                                >
+                                  Self-assign
+                                </Button>
+                              )
+                            }
                             <Button
                               onClick={() => {
                                 this.props.history.push('/form', { record: org })
