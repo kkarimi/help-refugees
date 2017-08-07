@@ -20,21 +20,6 @@ class Login extends Component {
     })
   }
 
-  signIn = () => {
-    this.props.auth.signInAnonymously()
-      .catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code
-        // var errorMessage = error.message
-
-        if (errorCode === 'auth/operation-not-allowed') {
-          alert('You must enable Anonymous auth in the Firebase Console.')
-        } else {
-          console.error(error)
-        }
-      })
-  }
-
   render () {
     const {from} = this.props.location.state || '/'
 
@@ -54,12 +39,6 @@ class Login extends Component {
             <p>You must log in to view the page at {from.pathname}</p>
           </div>
         )}
-
-        <div>
-          <button className="btn btn-default" onClick={this.signIn}>
-            Sign In Anonymously
-          </button>
-        </div>
 
         <form onSubmit={this.handleSubmit} style={{marginTop: '2em'}}>
           <fieldset>
