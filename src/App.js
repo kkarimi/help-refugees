@@ -12,6 +12,7 @@ import 'react-select/dist/react-select.css'
 
 class App extends Component {
   state = {
+    isLoadingUser: true,
     organisations: {}
   }
 
@@ -22,7 +23,10 @@ class App extends Component {
 
   componentDidMount () {
     auth.onAuthStateChanged(user => {
-      this.setState({ user })
+      this.setState({
+        user,
+        isLoadingUser: false,
+      })
     })
   }
 
@@ -31,12 +35,12 @@ class App extends Component {
   }
 
   render () {
-    const { user, organisations, isLoadingUser } = this.state // eslint-disable-line
+    const { admin, user, organisations, isLoadingUser } = this.state // eslint-disable-line
 
     const MatchWhenAuthorized = ({component: Component, ...rest}) => (
       <Route {...rest} render={renderProps => (
         user ? (
-          <Component {...renderProps} auth={auth} db={db} />
+          <Component {...renderProps} auth={auth} db={db} admin={admin} user={user} />
         ) : (
           <Redirect to={{
             pathname: '/login',
