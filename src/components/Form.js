@@ -35,12 +35,26 @@ class NewRecord extends PureComponent {
 
     $button.button('loading')
 
+    /**
+     * Have to use .getTime() because Firebase will not store Dates
+     * @param {*} date
+     */
+    const time = date => date.toDate().getTime()
+
+    const recordWithFields = {
+      ...record,
+      // {Number} created     - Unix time when record was created
+      created: record.created || time(moment()),
+      // {Number} updated     - Unix time when record was updated
+      updated: time(moment()),
+      // {Number} expiry      - Unix time 30 days after record was updated
+      expiry: record.expiry || time(moment().add(30, 'days')),
+      // {String} updated_by  - Email of user who last updated record
+      updated_by: this.props.user.email
+    }
+
     newForm
-      .set({
-        ...record,
-        created: record.created || moment().toDate(),
-        expiry: record.expiry || moment().add(30, 'days').toDate()
-      })
+      .set(recordWithFields)
       .then(() => {
         this.setState({ submitting: false, record: {} })
         $button.button('reset')
