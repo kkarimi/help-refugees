@@ -26,12 +26,8 @@ class Organisations extends PureComponent {
 
     ref
       .update({ valid: true })
-      .then(() => {
-        this.updateOrganisations()
-      })
-      .catch(() => {
-
-      })
+      .then(() => this.updateOrganisations())
+      .catch(() => {})
   }
 
   /**
@@ -43,12 +39,17 @@ class Organisations extends PureComponent {
 
     ref
       .remove()
-      .then(() => {
-        this.updateOrganisations()
-      })
-      .catch(() => {
+      .then(() => this.updateOrganisations())
+      .catch(() => {})
+  }
 
-      })
+  selfAssign (org) {
+    const ref = this.props.db.ref(`organisations/${org.uid}`)
+
+    ref
+      .update({ selfAssign: this.props.user.email })
+      .then(() => this.updateOrganisations())
+      .catch(() => {})
   }
 
   updateOrganisations () {
