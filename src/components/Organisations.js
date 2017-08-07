@@ -98,6 +98,7 @@ class Organisations extends PureComponent {
                   <th>Name</th>
                   <th>Type</th>
                   <th>Last Updated By</th>
+                  { admin && (<th style={{ width: '210px' }}></th>)}
                 </tr>
               </thead>
               <tbody>
@@ -114,18 +115,21 @@ class Organisations extends PureComponent {
                           <td>{moment(org.updated).format('MMM Do YY')}</td>
                           <td>{moment(org.expiry).format('MMM Do YY')}</td>
                           <td>{org.organisation_name}</td>
-                          <td>{
-                            org.service_type
-                            ? org.service_type.map((s, i) => (
-                                <div
-                                  key={i}
-                                  className="label label-default"
-                                  style={{ display: 'block', marginBottom: '0.5rem' }}>
-                                  {s}
-                                </div>
-                              ))
-                            : null
-                          }</td>
+                          <td>
+                            {
+                              org.service_type
+                              ? org.service_type.map((s, i) => (
+                                  <div
+                                    key={i}
+                                    className="label label-default"
+                                    style={{ display: 'block', marginBottom: '0.5rem' }}>
+                                    {s}
+                                  </div>
+                                ))
+                              : null
+                            }
+                          </td>
+                          <td>{ org.updated_by }</td>
                           <td>
                             <button
                               className="btn btn-default"
@@ -157,9 +161,6 @@ class Organisations extends PureComponent {
                                 </button>
                               )
                             }
-                          </td>
-                          <td>
-                            {org.updated_by}
                           </td>
                         </tr>
                       )
