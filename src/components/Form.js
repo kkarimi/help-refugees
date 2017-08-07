@@ -106,7 +106,11 @@ class NewRecord extends PureComponent {
                 <div className={`${submitting ? 'submitting' : null} inputs`}>
                   <div className="form-group">
                     <label htmlFor="organisation_name"> Organisation Name </label>
-                    <InputField name="organisation_name" value={record.organisation_name} handleChange={this.onFieldChange}/>
+                    <InputField
+                      name="organisation_name"
+                      value={record.organisation_name}
+                      handleChange={this.onFieldChange}
+                    />
                   </div>
 
                   <div className="form-group">
