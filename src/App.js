@@ -5,6 +5,7 @@ import { auth, db } from './firebase'
 import Form from './components/Form'
 import Organisations from './components/Organisations'
 import LogIn from './components/LogIn'
+import SignUp from './components/UserForm'
 import Callback from './Callback/Callback'
 import logo from './logo.png'
 import './App.css'
@@ -37,6 +38,16 @@ class App extends Component {
   render () {
     const { admin, user, organisations, isLoadingUser } = this.state // eslint-disable-line
 
+    const MatchWhenNotAuthorized = ({ component: Component, ...rest }) => (
+      <Route {...rest} render={renderProps => (
+        user ? (
+          <Redirect to={{ pathname: '/organisations' }}/>
+        ) : (
+          <Component {...renderProps} auth={auth} db={db} admin={admin} user={user} />
+        )
+      )}/>
+    )
+
     const MatchWhenAuthorized = ({component: Component, ...rest}) => (
       <Route {...rest} render={renderProps => (
         user ? (
@@ -66,7 +77,8 @@ class App extends Component {
               : (
                 <Switch>
                   {/* <Route path="/home" render={(props) => <Home auth={auth} {...props} />} /> */}
-                  <Route path="/login" render={(props) => <LogIn auth={auth} user={user} {...props} />} />
+                  <MatchWhenNotAuthorized path="/login" component={LogIn} />
+                  <MatchWhenNotAuthorized path="/signup" component={SignUp} />
                   <MatchWhenAuthorized path="/form" component={Form} />
                   <MatchWhenAuthorized path="/organisations" component={Organisations} />
                   <MatchWhenAuthorized path="/" component={Organisations} />
