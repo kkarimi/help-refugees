@@ -160,24 +160,26 @@ class NewRecord extends PureComponent {
                     <InputField name="opening_hours" handleChange={this.onFieldChange} />
                   </div>
 
-                  <div className="form-group">
-                    <label htmlFor="intended_service_user">
-                      Intended Service User (Refugees; Asylum Seekers; Volunteers; etc)
-                    </label>
-                    <InputField name="intended_service_user" handleChange={this.onFieldChange}/>
-                  </div>
+                  {/*
+                    <div className="form-group">
+                      <label htmlFor="intended_service_user">
+                        Intended Service User (Refugees; Asylum Seekers; Volunteers; etc)
+                      </label>
+                      <InputField name="intended_service_user" handleChange={this.onFieldChange}/>
+                    </div>
 
-                  <div className="form-group">
-                    <label htmlFor="nationalities_served"> Nationalities served </label>
-                    <InputField name="nationalities_served" handleChange={this.onFieldChange} />
-                  </div>
+                    <div className="form-group">
+                      <label htmlFor="nationalities_served"> Nationalities served </label>
+                      <InputField name="nationalities_served" handleChange={this.onFieldChange} />
+                    </div>
 
-                  <div className="form-group">
-                    <label htmlFor="limitations">
-                      Limitations/ Capacity (e.g very small group/ waiting time 6 weeks)
-                    </label>
-                    <InputField name="limitations" handleChange={this.onFieldChange} />
-                  </div>
+                    <div className="form-group">
+                      <label htmlFor="limitations">
+                        Limitations/ Capacity (e.g very small group/ waiting time 6 weeks)
+                      </label>
+                      <InputField name="limitations" handleChange={this.onFieldChange} />
+                    </div>
+                  */}
 
                   <div className="form-group">
                     <label htmlFor="volunteer_need"> Volunteer Need </label>
