@@ -29,10 +29,12 @@ class UserForm extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-
-      })
-      .catch(() => {
+      .then(() => {})
+      .catch(({ message }) => {
+        this.setState({
+          // Display error message
+          error: message
+        })
         // Handle Errors here.
         // const errorCode = error.code
         // const errorMessage = error.message
@@ -46,9 +48,10 @@ class UserForm extends Component {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-
+          Sign Up
         </div>
         <div className="panel-body">
+          { error && (<div className="alert alert-danger">{error}</div>)}
           <form onSubmit={this.signUp}>
             <div className="form-group">
               <label htmlFor="email"> Email </label>
