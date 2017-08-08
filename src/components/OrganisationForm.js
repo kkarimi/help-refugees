@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react'
+import Select from 'react-select'
+import * as firebase from 'firebase'
 import moment from 'moment'
+
+import DaysOpen from './DaysOpen'
 import InputField from './InputField'
 import { serviceTypes } from './constants'
-import * as firebase from 'firebase'
-import Select from 'react-select'
-import './OrganisationForm.css'
 
+import './OrganisationForm.css'
 class NewRecord extends PureComponent {
   constructor (props) {
     super(props)
@@ -215,6 +217,13 @@ class NewRecord extends PureComponent {
                     <label htmlFor="volunteer_need"> Volunteer Need </label>
                     <InputField name="volunteer_need" onChange={this.onFieldChange} />
                   </div>
+
+                  <DaysOpen
+                    value={record.daysOpen}
+                    onChange={(event) => {
+
+                    }}
+                  />
                 </div>
                 <button
                   ref="button"
