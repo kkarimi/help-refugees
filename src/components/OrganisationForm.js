@@ -39,7 +39,6 @@ class NewRecord extends PureComponent {
   handleSubmit (event) {
     const { record } = this.state
     event.preventDefault()
-    const newForm = firebase.database().ref('organisations').push() // eslint-disable-line
 
     this.setState({ submitting: true })
 
@@ -67,22 +66,33 @@ class NewRecord extends PureComponent {
       status: this.props.user.trusted ? 'verified' : 'needs_review'
     }
 
-    newForm
-      .set(recordWithFields)
-      .then(() => {
-        this.setState({ submitting: false, record: {} })
-        // Navigate back to organisations page
-        this.props.history.push('/organisations')
-      })
-      .catch(() => {
-        /**
-         * TODO Set button to red displaying error
-         * TODO Set timer to two seconds
-         * TODO Render form with values filled in
-         */
-        this.setState({ submitting: false })
-        $button.button('reset')
-      })
+    const onFormSuccess = () => {
+      this.setState({ submitting: false, record: {} })
+      // Navigate back to organisations page
+      this.props.history.push('/organisations')
+    }
+
+    const onFormFailure = () => {
+      /**
+       * TODO Set button to red displaying error
+       * TODO Set timer to two seconds
+       * TODO Render form with values filled in
+       */
+      this.setState({ submitting: false })
+      $button.button('reset')
+    }
+
+    if (record.uid) {
+      firebase.database().ref().child(`organisations/${record.uid}`)
+        .update(recordWithFields)
+        .then(onFormSuccess)
+        .catch(onFormFailure)
+    } else {
+      firebase.database().ref('organisations').push()
+        .set(recordWithFields)
+        .then(onFormSuccess)
+        .catch(onFormFailure)
+    }
   }
 
   onFieldChange ({ target: { name, value } }) {
