@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const InputField = ({ id, name, label, type, value, ...props }) => (
+const InputField = ({ id, name, label, type = 'text', value, ...props }) => (
   <input
     id={id || name} // If the user does not supply an id, use the name of the field
     name={name}
-    type={type || 'text'}
-    className="form-control"
+    type={type}
+    className={type !== 'checkbox' ? 'form-control' : null}
     value={value || ''}
     {...props}
   />
