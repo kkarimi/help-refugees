@@ -14,7 +14,7 @@ const InputField = ({ id, name, label, type = 'text', value, ...props }) => (
 
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([ PropTypes.string, PropTypes.bool ]),
   label: PropTypes.string,
   id: PropTypes.string,
   type: PropTypes.string
