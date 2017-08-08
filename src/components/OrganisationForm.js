@@ -8,6 +8,16 @@ import InputField from './InputField'
 import { serviceTypes } from './constants'
 
 import './OrganisationForm.css'
+
+const FormGroup = ({ children }) => <div className="col-sm-12" style={{ marginBottom: '1rem' }}>{children}</div>
+
+const FormLabel = ({ children, inputName }) => (
+  <div className="col-sm-3">
+    <label htmlFor={inputName}>{children}</label>
+  </div>
+)
+
+const FormInput = ({ children }) => <div className="col-sm-9">{children}</div>
 class NewRecord extends PureComponent {
   constructor (props) {
     super(props)
@@ -20,9 +30,9 @@ class NewRecord extends PureComponent {
      * history.push()
      */
     const { state } = props.location
-
+    const defaultRecord = { daysOpen: {} }
     this.state = {
-      record: state ? state.record || {} : {}
+      record: state ? state.record || defaultRecord : defaultRecord
     }
   }
 
@@ -61,7 +71,8 @@ class NewRecord extends PureComponent {
       .set(recordWithFields)
       .then(() => {
         this.setState({ submitting: false, record: {} })
-        $button.button('reset')
+        // Navigate back to organisations page
+        this.props.history.push('/organisations')
       })
       .catch(() => {
         /**
@@ -74,7 +85,7 @@ class NewRecord extends PureComponent {
       })
   }
 
-  onFieldChange (name, value) {
+  onFieldChange ({ target: { name, value } }) {
     const { record } = this.state
 
     this.setState({ record: { ...record, [name]: value } })
@@ -82,7 +93,7 @@ class NewRecord extends PureComponent {
 
   onSelectChange (name, value) {
     const { record } = this.state
-    this.setState({ record: { ...record, [name]: value } })
+    this.setState({ record: { ...record, [name]: value.map(v => v.value) } })
   }
 
   render () {
@@ -90,7 +101,7 @@ class NewRecord extends PureComponent {
 
     // TODO Reload values from record
     return (
-      <div className="col-sm-8 col-sm-offset-2">
+      <div className="col-sm-11">
         <div className="panel panel-default">
           <div className="panel-heading" style={{height: '55px', fontSize: '2.4rem'}}>
             New Organisation/Service
@@ -108,26 +119,45 @@ class NewRecord extends PureComponent {
                 onSubmit={this.handleSubmit}
               >
                 <div className={`${submitting ? 'submitting' : null} inputs`}>
-                  <div className="form-group">
-                    <label htmlFor="organisation_name"> Organisation Name </label>
-                    <InputField
-                      name="organisation_name"
-                      value={record.organisation_name}
-                      onChange={this.onFieldChange}
-                    />
-                  </div>
 
-                  <div className="form-group">
-                    <label htmlFor="serviceType">Service Type</label>
-                    <Select
-                      value={record.serviceType}
-                      multi={true}
-                      options={serviceTypes.map(s => ({ label: s, value: s }))}
-                      onChange={this.onSelectChange.bind(this, 'serviceType')}
-                    />
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="organisation_name"> Organisation Name </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField
+                        name="organisation_name"
+                        value={record.organisation_name}
+                        onChange={this.onFieldChange}
+                      />
+                    </div>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="serviceType">Service Type</label>
+                    </div>
+                    <div className="col-sm-9">
+                      <Select
+                        value={record.serviceType}
+                        multi={true}
+                        options={serviceTypes.map(s => ({ label: s, value: s }))}
+                        onChange={this.onSelectChange.bind(this, 'serviceType')}
+                      />
+                    </div>
+                  </FormGroup>
 
                   {/*
+                    <div className="form-group">
+                      <label htmlFor="serviceType">Service Type</label>
+                      <Select
+                        value={record.serviceType}
+                        multi={true}
+                        options={serviceTypes.map(s => ({ label: s, value: s }))}
+                        onChange={this.onSelectChange.bind(this, 'serviceType')}
+                      />
+                    </div>
+
                     <div className="form-group">
                       <label htmlFor="organisationType">Organisation Type</label>
                       <Select
@@ -146,53 +176,79 @@ class NewRecord extends PureComponent {
                     </div>
                    */}
 
-                  <div className="form-group">
-                    <label htmlFor="city"> City </label>
-                    <InputField name="city" onChange={this.onFieldChange}/>
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="city"> City </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="city" onChange={this.onFieldChange}/>
+                    </div>
+                  </FormGroup>
 
-                  <div className="form-group">
-                    <label htmlFor="address"> Address </label>
-                    <InputField name="address" onChange={this.onFieldChange}/>
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="address"> Address </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="address" onChange={this.onFieldChange}/>
+                    </div>
+                  </FormGroup>
 
-                  <div className="form-group">
-                    <label htmlFor="post_code"> Post Code</label>
-                    <InputField name="post_code" onChange={this.onFieldChange}/>
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="post_code"> Post Code</label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="post_code" onChange={this.onFieldChange}/>
+                    </div>
+                  </FormGroup>
 
-                  <div className="form-group">
-                    <label htmlFor="phone_number"> Phone Number </label>
-                    <InputField name="phone_number" type='tel' onChange={this.onFieldChange}/>
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="phone_number"> Phone Number </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="phone_number" type='tel' onChange={this.onFieldChange}/>
+                    </div>
+                  </FormGroup>
 
-                  <div className="form-group">
-                    <label htmlFor="url"> Url </label>
-                    <InputField name="url" type='url' onChange={this.onFieldChange}/>
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="url"> Url </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="url" type='url' onChange={this.onFieldChange}/>
+                    </div>
+                  </FormGroup>
 
-                  <div className="form-group">
-                    <label htmlFor="email"> Email </label>
-                    <InputField name="email" type="email" onChange={this.onFieldChange} />
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="email"> Email </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="email" type="email" onChange={this.onFieldChange} />
+                    </div>
+                  </FormGroup>
 
-                  <div className="form-group">
-                    <label htmlFor="service_details">
-                      Service Details
-                    </label>
-                    <small style={{display: 'block'}}>
-                      In a few sentences, provide details explaining
-                      what the service is and what they offer in clear, simple language.
-                    </small>
-                    <InputField name="service_details" onChange={this.onFieldChange} />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="opening_hours">Opening Hours</label>
-                    <InputField name="opening_hours" onChange={this.onFieldChange} />
-                  </div>
+                  <FormGroup>
+                    <div className="col-sm-3">
+                      <label htmlFor="service_details"> Service Details </label>
+                    </div>
+                    <div className="col-sm-9">
+                      <InputField name="service_details" onChange={this.onFieldChange} />
+                      <small style={{display: 'block'}}>
+                        In a few sentences, provide details explaining
+                        what the service is and what they offer in clear, simple language.
+                      </small>
+                    </div>
+                  </FormGroup>
 
                   {/*
+                    <div className="form-group">
+                      <label htmlFor="opening_hours">Opening Hours</label>
+                      <InputField name="opening_hours" onChange={this.onFieldChange} />
+                    </div>
+
                     <div className="form-group">
                       <label htmlFor="intended_service_user">
                         Intended Service User (Refugees; Asylum Seekers; Volunteers; etc)
