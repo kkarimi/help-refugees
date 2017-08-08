@@ -213,17 +213,25 @@ class NewRecord extends PureComponent {
                     </div>
                   */}
 
-                  <div className="form-group">
-                    <label htmlFor="volunteer_need"> Volunteer Need </label>
-                    <InputField name="volunteer_need" onChange={this.onFieldChange} />
-                  </div>
+                  <FormGroup>
+                    <FormLabel inputName="volunteer_need"> Volunteer Need </FormLabel>
+                    <FormInput>
+                      <InputField name="volunteer_need" onChange={this.onFieldChange} />
+                    </FormInput>
+                  </FormGroup>
 
-                  <DaysOpen
-                    value={record.daysOpen}
-                    onChange={(event) => {
+                  <FormGroup>
+                    <FormLabel inputName="daysOpen"> Days Open </FormLabel>
+                    <FormInput>
+                      <DaysOpen
+                        value={record.daysOpen}
+                        onChange={(daysOpen) => this.setState({
+                          record: { ...this.state.record, daysOpen }
+                        })}
+                      />
+                    </FormInput>
+                  </FormGroup>
 
-                    }}
-                  />
                 </div>
                 <button
                   ref="button"
