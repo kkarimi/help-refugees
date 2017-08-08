@@ -41,7 +41,7 @@ class UserForm extends Component {
   }
 
   render () {
-    const { email, password, organisation } = this.state.user
+    const { error, user: { email, password, organisation, newsletter } } = this.state
 
     return (
       <div className="panel panel-default">
@@ -76,6 +76,17 @@ class UserForm extends Component {
                 value={organisation}
                 onChange={this.onFieldChange}
               />
+            </div>
+            <div className="checkbox">
+              <label htmlFor="organisation">
+                <InputField
+                  type="checkbox"
+                  name="newsletter"
+                  value={newsletter}
+                  onChange={this.onFieldChange}
+                />
+                Subscribe to newsletter?
+               </label>
             </div>
             <div className="form-group">
               <Button styleType="success"> Sign Up </Button>
