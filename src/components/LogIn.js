@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import UserForm from './UserForm'
 
 class Login extends Component {
   state = {
@@ -35,29 +36,38 @@ class Login extends Component {
           </div>
         )}
 
-        <form onSubmit={this.handleSubmit} style={{marginTop: '2em'}}>
-          <fieldset>
-            <label htmlFor="email">Email</label>
-            <input
-              className="form-control"
-              type="text"
-              value={this.state.email || ''}
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-          </fieldset>
-          <fieldset style={{marginTop: '0.5em'}}>
-            <label htmlFor="password">Password</label>
-            <input
-              className="form-control"
-              type="password"
-              value={this.state.password || ''}
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-          </fieldset>
-          <fieldset style={{marginTop: '1em'}}>
-            <button className="btn btn-default" type="submit">Sign In</button>
-          </fieldset>
-        </form>
+        <UserForm db={this.props.db} auth={this.props.auth} />
+
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            Log In
+          </div>
+          <div className="panel-body">
+            <form onSubmit={this.handleSubmit}>
+              <fieldset>
+                <label htmlFor="email">Email</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  value={this.state.email || ''}
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
+              </fieldset>
+              <fieldset style={{marginTop: '0.5em'}}>
+                <label htmlFor="password">Password</label>
+                <input
+                  className="form-control"
+                  type="password"
+                  value={this.state.password || ''}
+                  onChange={e => this.setState({ password: e.target.value })}
+                />
+              </fieldset>
+              <fieldset style={{marginTop: '1em'}}>
+                <button className="btn btn-default" type="submit">Sign In</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
       </section>
     )
   }
