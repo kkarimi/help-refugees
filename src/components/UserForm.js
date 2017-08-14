@@ -29,7 +29,9 @@ class UserForm extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {})
+      .then(user => {
+         // TODO Find way to set newsletter & organisation to user object
+      })
       .catch(({ message }) => {
         this.setState({
           // Display error message
