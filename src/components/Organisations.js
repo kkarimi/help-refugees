@@ -77,11 +77,11 @@ class Organisations extends PureComponent {
   getStatusText (status) {
     switch (status) {
       case 'in_progress':
-        return 'In Progress'
+        return <div className="label label-danger">In Progress</div>
       case 'needs_review':
-        return 'Needs Review'
+        return <div className="label label-warning">Needs Review</div>
       case 'verified':
-        return 'Verified'
+        return <div className="label label-success">Verified</div>
       default:
         return ''
     }
