@@ -195,15 +195,25 @@ class Organisations extends PureComponent {
                                 </Button>
                               )
                             }
-                            <Button
-                              onClick={() => {
-                                this.props.history.push('/form', { record: org })
-                              }}
-                            >
-                              Edit
-                            </Button>
                             {
-                              admin &&
+                              /**
+                               * Show edit button if:
+                               * * organisation is not selfAssigned
+                               * * the user is the same as the one assigned to the organisation
+                               */
+                              (org.selfAssign && org.selfAssign === this.props.user.email) &&
+                              (
+                                <Button
+                                  onClick={() => {
+                                    this.props.history.push('/form', { record: org })
+                                  }}
+                                >
+                                  Edit
+                                </Button>
+                              )
+                            }
+                            {
+                              (admin || org.selfAssign === this.props.user.email) &&
                               (
                                 <Button
                                   onClick={this.validateRecord.bind(this, org)}
