@@ -7,6 +7,7 @@ const InputField = ({ id, name, label, type = 'text', value, ...props }) => (
     name={name}
     type={type}
     className={type !== 'checkbox' ? 'form-control' : null}
+    checked={value || false}
     value={value || ''}
     {...props}
   />
