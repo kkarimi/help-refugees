@@ -87,32 +87,6 @@ class Organisations extends PureComponent {
     }
   }
 
-  getButtonForSelfAssignedOrganisation (org) {
-    // return (
-    //   user.email === org.selfAssign
-    //   ? (
-    //     <Button
-    //       styleType="success"
-    //       style={{ width: '210px', marginBottom: '0.2rem' }}
-    //       onClick={this.markAsDone.bind(this, org)}
-    //     >
-    //       Mark As Done
-    //     </Button>
-    //   )
-    //   : (
-    //     <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
-    //       Assigned to: {org.selfAssign}
-    //     </Button>
-    //   )
-    // )
-
-    return (
-      <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
-        Assigned to: {org.selfAssign}
-      </Button>
-    )
-  }
-
   componentWillMount () {
     this.updateOrganisations()
   }
@@ -184,7 +158,12 @@ class Organisations extends PureComponent {
                           <td>
                             {
                               org.selfAssign
-                              ? (this.getButtonForSelfAssignedOrganisation(org))
+                              ? (
+                                org.selfAssign !== this.props.user.email &&
+                                <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
+                                  Assigned to: {org.selfAssign}
+                                </Button>
+                              )
                               : (
                                 <Button
                                   styleType="success"
