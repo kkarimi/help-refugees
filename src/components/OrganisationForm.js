@@ -95,10 +95,15 @@ class NewRecord extends PureComponent {
     }
   }
 
-  onFieldChange ({ target: { name, value } }) {
+  onFieldChange ({ target: { name, type, value, checked } }) {
     const { record } = this.state
 
-    this.setState({ record: { ...record, [name]: value } })
+    this.setState({
+      record: {
+        ...record,
+        [name]: type === 'checkbox' ? checked : value
+      }
+    })
   }
 
   onSelectChange (name, value) {
