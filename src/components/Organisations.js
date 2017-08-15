@@ -122,7 +122,6 @@ class Organisations extends PureComponent {
                   <th>Name</th>
                   <th>Type</th>
                   <th>Last Updated By</th>
-                  { admin && (<th style={{ width: '210px' }}></th>)}
                 </tr>
               </thead>
               <tbody>
@@ -154,7 +153,7 @@ class Organisations extends PureComponent {
                               : null
                             }
                           </td>
-                          <td>{ org.updated_by }</td>
+                          {/* <td>{ org.updated_by }</td> */}
                           <td>
                             {
                               org.selfAssign
