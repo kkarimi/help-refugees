@@ -318,7 +318,12 @@ class NewRecord extends PureComponent {
                   <FormGroup>
                     <FormLabel inputName="volunteer_need"> Volunteer Need </FormLabel>
                     <FormInput>
-                      <InputField name="volunteer_need" onChange={this.onFieldChange} />
+                      <InputField
+                        type="checkbox"
+                        name="volunteer_need"
+                        value={record.volunteer_need}
+                        onChange={this.onFieldChange}
+                      />
                     </FormInput>
                   </FormGroup>
 
