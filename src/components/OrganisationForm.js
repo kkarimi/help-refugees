@@ -191,7 +191,11 @@ class NewRecord extends PureComponent {
                       <label htmlFor="city"> City </label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="city" onChange={this.onFieldChange}/>
+                      <InputField
+                        name="city"
+                        value={record.city}
+                        onChange={this.onFieldChange}
+                      />
                     </div>
                   </FormGroup>
 
@@ -200,7 +204,11 @@ class NewRecord extends PureComponent {
                       <label htmlFor="address"> Address </label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="address" onChange={this.onFieldChange}/>
+                      <InputField
+                        name="address"
+                        value={record.address}
+                        onChange={this.onFieldChange}
+                      />
                     </div>
                   </FormGroup>
 
@@ -209,7 +217,11 @@ class NewRecord extends PureComponent {
                       <label htmlFor="post_code"> Post Code</label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="post_code" onChange={this.onFieldChange}/>
+                      <InputField
+                        name="post_code"
+                        value={record.post_code}
+                        onChange={this.onFieldChange}
+                      />
                     </div>
                   </FormGroup>
 
@@ -218,7 +230,12 @@ class NewRecord extends PureComponent {
                       <label htmlFor="phone_number"> Phone Number </label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="phone_number" type='tel' onChange={this.onFieldChange}/>
+                      <InputField
+                        name="phone_number"
+                        type="tel"
+                        value={record.phone_number}
+                        onChange={this.onFieldChange}
+                      />
                     </div>
                   </FormGroup>
 
@@ -227,7 +244,12 @@ class NewRecord extends PureComponent {
                       <label htmlFor="url"> Url </label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="url" type='url' onChange={this.onFieldChange}/>
+                      <InputField
+                        name="url"
+                        type="url"
+                        value={record.url}
+                        onChange={this.onFieldChange}
+                      />
                     </div>
                   </FormGroup>
 
@@ -236,7 +258,12 @@ class NewRecord extends PureComponent {
                       <label htmlFor="email"> Email </label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="email" type="email" onChange={this.onFieldChange} />
+                      <InputField
+                        name="email"
+                        type="email"
+                        value={record.email}
+                        onChange={this.onFieldChange}
+                      />
                     </div>
                   </FormGroup>
 
@@ -245,7 +272,11 @@ class NewRecord extends PureComponent {
                       <label htmlFor="service_details"> Service Details </label>
                     </div>
                     <div className="col-sm-9">
-                      <InputField name="service_details" onChange={this.onFieldChange} />
+                      <InputField
+                        name="service_details"
+                        value={record.service_details}
+                        onChange={this.onFieldChange}
+                      />
                       <small style={{display: 'block'}}>
                         In a few sentences, provide details explaining
                         what the service is and what they offer in clear, simple language.
