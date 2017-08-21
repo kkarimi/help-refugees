@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import Select from 'react-select'
 import * as firebase from 'firebase'
 import moment from 'moment'
 
 import DaysOpen from './DaysOpen'
 import InputField from './InputField'
+import Select from './Form/ReactSelect'
 import { serviceTypes } from './constants'
 
 import './OrganisationForm.css'

@@ -11,7 +11,6 @@ import SignUp from './components/UserForm'
 import Callback from './Callback/Callback'
 import logo from './logo.png'
 import './App.css'
-import 'react-select/dist/react-select.css'
 
 class App extends Component {
   state = {
