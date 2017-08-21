@@ -12,14 +12,10 @@ class SelectField extends PureComponent {
   }
 
   handleChange = (event) => {
-    var options = event.target.options
-    var values = []
-
-    for (var i = 0, l = options.length; i < l; i++) {
-      if (options[i].selected) {
-        values.push(options[i].value)
-      }
-    }
+    var values = event.target.options.reduce(function (a, o) {
+      if (o.selected) a.push(o.value)
+      return a
+    }, [])
 
     this.setState({ values })
 
@@ -30,13 +26,15 @@ class SelectField extends PureComponent {
     return (
       <select
         name={this.props.name}
-        className="ui fluid dropdown"
+        className="form-control"
         ref="dropdown"
         onChange={this.handleChange}
         style={{width: '200px', textOverflow: 'ellipsis'}}
       >
         {this.props.options.map((type, i) => (
-          <option value={type} key={i}>{type}</option>
+          <option value={type} key={i} selected={this.state.values.indexOf(type)}>
+            {type}
+          </option>
         ))}
       </select>
     )

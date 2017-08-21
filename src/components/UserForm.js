@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
-import InputField from './InputField'
+import InputField from './Form/InputField'
 import Button from './Button'
 class UserForm extends Component {
   state = {
