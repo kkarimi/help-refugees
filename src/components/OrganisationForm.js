@@ -5,17 +5,13 @@ import moment from 'moment'
 import Select from './Form/ReactSelect'
 import DaysOpen from './Form/DaysOpen'
 import InputField from './Form/InputField'
+import Label from './Form/Label'
+
 import { serviceTypes } from './constants'
 
 import './OrganisationForm.css'
 
 const FormGroup = ({ children }) => <div className="col-sm-12" style={{ marginBottom: '1rem' }}>{children}</div>
-
-const FormLabel = ({ children, inputName }) => (
-  <div className="col-sm-3">
-    <label htmlFor={inputName}>{children}</label>
-  </div>
-)
 
 const FormInput = ({ children }) => <div className="col-sm-9">{children}</div>
 class NewRecord extends PureComponent {
@@ -136,9 +132,7 @@ class NewRecord extends PureComponent {
                 <div className={`${submitting ? 'submitting' : null} inputs`}>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="organisation_name"> Organisation Name </label>
-                    </div>
+                    <Label inputName="name"> Name </Label>
                     <div className="col-sm-9">
                       <InputField
                         name="organisation_name"
@@ -149,9 +143,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="serviceType">Service Type</label>
-                    </div>
+                    <Label inputName="serviceType"> Service Type </Label>
                     <div className="col-sm-9">
                       <Select
                         value={record.serviceType}
@@ -192,9 +184,7 @@ class NewRecord extends PureComponent {
                    */}
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="city"> City </label>
-                    </div>
+                    <Label inputName="city"> City </Label>
                     <div className="col-sm-9">
                       <InputField
                         name="city"
@@ -205,9 +195,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="address"> Address </label>
-                    </div>
+                    <Label inputName="address"> Address </Label>
                     <div className="col-sm-9">
                       <InputField
                         name="address"
@@ -218,9 +206,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="post_code"> Post Code</label>
-                    </div>
+                    <Label inputName="post_code"> Post Code </Label>
                     <div className="col-sm-9">
                       <InputField
                         name="post_code"
@@ -231,9 +217,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="phone_number"> Phone Number </label>
-                    </div>
+                    <Label inputName="phone_number">Phone Number</Label>
                     <div className="col-sm-9">
                       <InputField
                         name="phone_number"
@@ -245,9 +229,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="url"> Url </label>
-                    </div>
+                    <Label inputName="url">Url</Label>
                     <div className="col-sm-9">
                       <InputField
                         name="url"
@@ -259,9 +241,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="email"> Email </label>
-                    </div>
+                    <Label inputName="email">Email</Label>
                     <div className="col-sm-9">
                       <InputField
                         name="email"
@@ -273,9 +253,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <div className="col-sm-3">
-                      <label htmlFor="service_details"> Service Details </label>
-                    </div>
+                    <Label inputName="service_details">Service Details</Label>
                     <div className="col-sm-9">
                       <InputField
                         name="service_details"
@@ -316,7 +294,7 @@ class NewRecord extends PureComponent {
                   */}
 
                   <FormGroup>
-                    <FormLabel inputName="volunteer_need"> Volunteer Need </FormLabel>
+                    <Label inputName="volunteer_need"> Volunteer Need </Label>
                     <FormInput>
                       <InputField
                         type="checkbox"
@@ -328,7 +306,7 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <FormLabel inputName="daysOpen"> Days Open </FormLabel>
+                    <Label inputName="daysOpen"> Days Open </Label>
                     <FormInput>
                       <DaysOpen
                         value={record.daysOpen}
