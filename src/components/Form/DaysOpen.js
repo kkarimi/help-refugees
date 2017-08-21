@@ -56,7 +56,7 @@ class DaysOpen extends Component {
                   type="checkbox"
                   id={`daysOpen.${name}`}
                   name={`daysOpen.${name}`}
-                  checked={value[name]}
+                  checked={value[name] || false}
                   onChange={this.onChange.bind(this, name)}
                 />
                 {label}
