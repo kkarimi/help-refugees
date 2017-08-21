@@ -10,11 +10,12 @@ class DaysOpen extends Component {
   }
 
   onChange (name, { target: { checked } }) {
-    const value = { [name]: checked === true ? {} : void 0 }
-
-    this.setState(value)
-
-    this.props.onChange({ ...this.state, ...value })
+    this.setState({ [name]: checked === true ? {} : void 0 }, () => {
+      this.props.onChange(Object.keys(this.state).reduce((obj, key) => {
+        // Only add items whose value is not undefined
+        return this.state[key] !== void 0 ? { ...obj, [key]: this.state[key] } : obj
+      }, {}))
+    })
   }
 
   onOpenChange (name, evt) {
