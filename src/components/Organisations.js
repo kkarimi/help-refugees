@@ -20,7 +20,7 @@ class Organisations extends PureComponent {
     // Bind function scopes to class
     this.validateRecord = this.validateRecord.bind(this)
     this.deleteRecord = this.deleteRecord.bind(this)
-    this.onNameSearch = this.onNameSearch.bind(this)
+    this.onSearch = this.onSearch.bind(this)
   }
 
   validateRecord (org) {
@@ -99,13 +99,13 @@ class Organisations extends PureComponent {
     this.updateOrganisations()
   }
 
-  onNameSearch (evt) {
-    const state = { nameSearch: evt.target.value }
+  onSearch (evt) {
+    const state = { searchText: evt.target.value }
 
     state.organisations = (
-      state.nameSearch.length
+      state.searchText.length
       ? this.state.baseOrganisations.filter(function (org) {
-        return new RegExp(state.nameSearch, 'ig').test(org.organisation_name)
+        return new RegExp(state.searchText, 'ig').test(JSON.stringify(org))
       })
       : this.state.baseOrganisations
     )
@@ -114,7 +114,7 @@ class Organisations extends PureComponent {
   }
 
   render () {
-    const { organisations, isLoading, nameSearch } = this.state
+    const { organisations, isLoading, searchText } = this.state
     const { admin } = this.props
 
     return (
@@ -123,23 +123,28 @@ class Organisations extends PureComponent {
           {/* <!-- Default panel contents --> */}
           <div className="panel-heading" style={{ fontSize: '2.4rem' }}>
             <div className="row">
-              Organisations
-              <div className="pull-right">
-                <button
-                  className="btn btn-default"
-                  onClick={() => this.props.history.push('/form')}
-                >
-                  New
-                </button>
+              <div className="col-sm-12">
+                Organisations
+                <div className="pull-right">
+                  <button
+                    className="btn btn-default"
+                    onClick={() => this.props.history.push('/form')}
+                  >
+                    New
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="row">
-              <input
-                className="form-control"
-                type="text"
-                value={nameSearch || ''}
-                onChange={this.onNameSearch}
-              />
+            <div className="row" style={{ paddingTop: '8px' }}>
+              <div className="col-sm-12">
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Filter"
+                  value={searchText || ''}
+                  onChange={this.onSearch}
+                />
+              </div>
             </div>
           </div>
 
