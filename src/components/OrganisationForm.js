@@ -135,21 +135,21 @@ class NewRecord extends PureComponent {
                     <Label inputName="name"> Name </Label>
                     <div className="col-sm-9">
                       <InputField
-                        name="organisation_name"
-                        value={record.organisation_name}
+                        name="name"
+                        value={record.name}
                         onChange={this.onFieldChange}
                       />
                     </div>
                   </FormGroup>
 
                   <FormGroup>
-                    <Label inputName="serviceType"> Service Type </Label>
+                    <Label inputName="type"> Service Type </Label>
                     <div className="col-sm-9">
                       <Select
-                        value={record.serviceType}
+                        value={record.type}
                         multi={true}
                         options={serviceTypes.map(s => ({ label: s, value: s }))}
-                        onChange={this.onSelectChange.bind(this, 'serviceType')}
+                        onChange={this.onSelectChange.bind(this, 'type')}
                       />
                     </div>
                   </FormGroup>
@@ -255,11 +255,12 @@ class NewRecord extends PureComponent {
                   <FormGroup>
                     <Label inputName="service_details">Service Details</Label>
                     <div className="col-sm-9">
-                      <InputField
+                      <textarea
+                        className="form-control"
                         name="service_details"
                         value={record.service_details}
                         onChange={this.onFieldChange}
-                      />
+                      ></textarea>
                       <small style={{display: 'block'}}>
                         In a few sentences, provide details explaining
                         what the service is and what they offer in clear, simple language.

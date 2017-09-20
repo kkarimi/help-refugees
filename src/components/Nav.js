@@ -13,7 +13,7 @@ class Navigation extends PureComponent {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
               Help Refugees
             </a>
           </div>

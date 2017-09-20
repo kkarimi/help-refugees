@@ -172,9 +172,16 @@ class Organisations extends PureComponent {
                         <td>{ this.getStatusText(org.status) }</td>
                         {/* <td>{moment(org.updated).format('MMM Do YY')}</td> */}
                         {/* <td>{moment(org.expiry).format('MMM Do YY')}</td> */}
-                        <td>{org.organisation_name}</td>
                         <td>
-                          {org.serviceType && org.serviceType.map((s, i) => (
+                          <div>
+                            <p style={{ fontSize: '13px', fontWeight: 700 }}>{org.name}</p>
+                            <p style={{ fontSize: '10px' }}>{org.details}</p>
+                            { org.url && <a style={{ fontSize: '10px' }} href={org.url}>{org.url}</a> }
+                          </div>
+
+                        </td>
+                        <td>
+                          {org.type && org.type.map((s, i) => (
                             <div
                               key={i}
                               className="label label-default"

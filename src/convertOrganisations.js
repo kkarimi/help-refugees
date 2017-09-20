@@ -1,61 +1,89 @@
 const csvtojson = require('csvtojson')
 const path = require('path')
+const moment = require('moment')
+const formatOpeningHours = require('./DateTools/formatOpeningHours')
+
+var admin = require('firebase-admin')
+var serviceAccount = require('../firebaseServiceAccount.json')
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://stone-nucleus-173311.firebaseio.com'
+})
+
+const db = admin.database() // the real-time database
+
+const ref = db.ref().child('organisations')
+
 let count = 0
-let needCorrectedHours = 0
 const organisations = []
 
-/**
- * Check that hours are properly formatted
- *
- * @param {{}} obj
- */
-function checkForFormattedHours (obj, print) {
-  const hours = obj['Opening hours']
-  if (hours.length && !/N\/A/ig.test(hours) && hours.indexOf('Monday') === -1) {
-    console.log(obj['Opening hours'])
-    console.log('')
-    needCorrectedHours++
-  }
+const headingMapping = {
+  'ov': 'updated_by',
+  'Last updated (DD/MM/YY)': 'updated',
+  'Expiry Date?': 'expiry',
+  'Name': 'name',
+  'Service Type': 'type',
+  'Additional/other (separate each type with a semi-colon)': 'additionalInfo',
+  'Details (who, what, when, where, why)': 'details',
+  'Region': 'region',
+  'City/ Town': 'city',
+  'Address': 'address',
+  'Post Code': 'postCode',
+  'Phone': 'phone',
+  'URL': 'url',
+  'Email': 'email',
+  'Hours': 'hours',
+  'Volunteer need?': 'volunteerNeed'
 }
 
 csvtojson({ noheader: false })
   .fromFile(path.resolve(__dirname, './organisations.csv'))
   .on('json', function (obj) {
-    const updated = obj['Last updated (DD/MM/YY)']
-    const expiry = obj['Expiry Date?']
-    const detailsKey = 'Details: a few sentences about the organisation in plain English'
+    const converted = {}
 
-    if (updated.length && !isNaN(new Date(updated))) {
-      obj.updated = new Date(updated)
-    }
-    delete obj['Last updated (DD/MM/YY)']
+    // Convert spreadsheet record to Firebase record
+    Object.keys(obj).forEach(h => {
+      const heading = headingMapping[h]
 
-    if (expiry.length && !isNaN(new Date(expiry))) {
-      obj.expiry = new Date(expiry)
-    }
-    delete obj['Expiry Date?']
+      // Do not return value if there is none
+      if (obj[h].length === 0) return void 0
 
-    obj.limitations = (
-      obj['Limitations/ Capacity (e']['g very small group/ waiting time 6 weeks)']
-    )
-    delete obj['Limitations/ Capacity (e']
+      // Convert Yes & No to boolean values
+      else if (obj[h] === 'No') converted[heading] = false
+      else if (obj[h] === 'Yes') converted[heading] = true
 
-    obj.details = (
-      obj[detailsKey][' Include whether it is a drop in service, which nationalities are catered for (if this is specified), and whether travel expenses are included']['']
-    )
-    delete obj[detailsKey]
+      else if (heading === 'type') {
+        // convert type to array
+        converted[heading] = obj[h].split(';')
+      } else if ((heading === 'expiry' || heading === 'updated') && !isNaN(new Date(obj[h]))) {
+        // Convert `expiry` and `updated` to Dates
+        converted[heading] = new Date(obj[h])
+      } else if (heading === 'hours') {
+        converted[heading] = formatOpeningHours(obj[h])
+      } else {
+        // `Trim` text to removing beginning and trailing whitespace
+        converted[heading] = obj[h].trim()
+      }
 
-    obj.additionalInfo = obj['Additional/other'][' Separate each type with a semi-colon']
-    delete obj['Additional/other']
+      if (converted.updated === void 0) converted.status = 'needs_review'
+      else if (converted.updated !== void 0 && converted.expiry === void 0) converted.status = 'in_progress'
+      else if (converted.expiry === void 0) converted.status = 'needs_review'
 
-    organisations.push(obj)
+      if (converted.status === void 0) converted.status = 'needs_review'
+    })
 
-    count++
-
-    checkForFormattedHours(obj)
+    organisations.push(converted)
   })
   .on('done', function () {
-    // console.log(organisations)
-    console.log('Number of rows:' + count)
-    console.log('Need corrected hours:' + needCorrectedHours)
+    Promise
+      .all(organisations.map(o => ref.push().set(o)))
+      .then(() => {
+        console.log(`${count} organisations added`)
+        process.exit()
+      })
+      .catch(() => {
+        console.log('Not all organisations added')
+        process.exit()
+      })
   })
