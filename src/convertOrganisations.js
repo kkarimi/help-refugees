@@ -1,6 +1,5 @@
 const csvtojson = require('csvtojson')
 const path = require('path')
-const moment = require('moment')
 const formatOpeningHours = require('./DateTools/formatOpeningHours')
 
 var admin = require('firebase-admin')
@@ -69,6 +68,7 @@ csvtojson({ noheader: false })
       if (converted.updated === void 0) converted.status = 'needs_review'
       else if (converted.updated !== void 0 && converted.expiry === void 0) converted.status = 'in_progress'
       else if (converted.expiry === void 0) converted.status = 'needs_review'
+      // TODO Add something here assign a expiry of 90 days from now using moment
 
       if (converted.status === void 0) converted.status = 'needs_review'
     })
