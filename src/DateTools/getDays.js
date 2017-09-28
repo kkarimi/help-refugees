@@ -3,15 +3,17 @@ const DAYS = require('./constants').DAYS
 
 function getDays (d) {
   // Do not perform searching logic if `d` is only one day
-  if (d.indexOf('-') === -1) return d
+  if (d.indexOf('-') === -1) return d.toLowerCase()
+  else d = d.toLowerCase()
 
-  // Split day in half to get first day and last day
   /**
+   * First day of range
    * @type {string}
    */
   const day1 = d.split('-')[0]
 
   /**
+   * Last day in range
    * @type {string}
    */
   const day2 = d.split('-')[1]

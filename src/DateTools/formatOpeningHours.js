@@ -14,8 +14,8 @@ function formatOpeningHours (hours) {
     let day = getDays(h.split(': ')[0])
     let hours = h.split(': ')[1]
 
-    if (day === 'Open 24/7') {
-      day = 'Monday-Sunday'
+    if (day === 'open 24/7') {
+      day = 'monday-sunday'
       hours = '0:00-23:59'
     }
 
@@ -23,7 +23,7 @@ function formatOpeningHours (hours) {
       day.forEach(d => {
         a[d] = formatHours(hours)
       })
-    } else {
+    } else if (_.isString(day)) {
       a[day] = formatHours(hours)
     }
 
