@@ -1,22 +1,24 @@
-export const serviceTypes = [
+export const types = [
   'Advice & Support',
+  'Advocacy',
   'Befriending',
   'Children & Young People',
-  'Community care',
   'Destitution & Debt',
   'Education',
-  'Employment/ Training/ Volunteering',
+  'Employment / Training / Volunteering',
+  'Faith',
   'Family',
   'Food',
-  'Healthcare/ Mental Health / Disability',
+  'Healthcare / Mental Health / Disability',
   'Housing',
-  'Legal',
   'LGBTQI',
+  'Legal',
+  'Non-food items',
   'Social (clubs, groups)',
-  'Translation',
+  'Support',
   'Trafficking & Gender Based Violence',
-  'Women',
-  'Other'
+  'Translation',
+  'Women'
 ]
 
 export const organisationTypes = [

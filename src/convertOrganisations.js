@@ -1,5 +1,6 @@
 const csvtojson = require('csvtojson')
 const path = require('path')
+const _ = require('lodash')
 const formatOpeningHours = require('./DateTools/formatOpeningHours')
 
 var admin = require('firebase-admin')
@@ -15,14 +16,14 @@ const db = admin.database() // the real-time database
 const ref = db.ref().child('organisations')
 
 let count = 0
-const organisations = []
+let organisations = []
 
 const headingMapping = {
   'ov': 'updated_by',
   'Last updated (DD/MM/YY)': 'updated',
   'Expiry Date?': 'expiry',
   'Name': 'name',
-  'Service Type': 'type',
+  'Service Type': 'types',
   'Additional/other (separate each type with a semi-colon)': 'additionalInfo',
   'Details (who, what, when, where, why)': 'details',
   'Region': 'region',
@@ -52,9 +53,11 @@ csvtojson({ noheader: false })
       else if (obj[h] === 'No') converted[heading] = false
       else if (obj[h] === 'Yes') converted[heading] = true
 
-      else if (heading === 'type') {
+      else if (heading === 'types') {
         // convert type to array
         converted[heading] = obj[h].split(';')
+      } else if (heading === 'additionalInfo') {
+        converted.types = converted.types.concat(obj[h].replace('\n', '').split('; '))
       } else if ((heading === 'expiry' || heading === 'updated') && !isNaN(new Date(obj[h]))) {
         // Convert `expiry` and `updated` to Dates
         converted[heading] = new Date(obj[h])
@@ -76,6 +79,30 @@ csvtojson({ noheader: false })
     organisations.push(converted)
   })
   .on('done', function () {
+    organisations = organisations.map(org => {
+      org.types = _.isArray(org.types) && org.types.map(t => {
+        switch (t) {
+          case 'Children and Young People':
+            return 'Children & Young People'
+          case 'Destitution':
+            return 'Destitution & Debt'
+          case 'Employment/ Training/ Volunteering':
+          case 'Employment/ Training /Volunteering':
+            return 'Employment / Training / Volunteering'
+          case 'Health':
+          case 'Healthcare/ Mental Health / Disability':
+            return 'Healthcare / Mental Health / Disability'
+          case 'Social':
+          case 'Social (groups, clubs)':
+            return 'Social (clubs, groups)'
+          default:
+            return t
+        }
+      })
+
+      return org
+    })
+
     Promise
       .all(organisations.map(o => ref.push().set(o)))
       .then(() => {

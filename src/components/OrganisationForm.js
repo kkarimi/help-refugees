@@ -7,7 +7,7 @@ import DaysOpen from './Form/DaysOpen'
 import InputField from './Form/InputField'
 import Label from './Form/Label'
 
-import { serviceTypes, formHelpers } from './constants'
+import { types, formHelpers } from './constants'
 
 import './OrganisationForm.css'
 
@@ -165,10 +165,10 @@ class NewRecord extends PureComponent {
                     <Label inputName="type"> Service Type </Label>
                     <div className="col-sm-9">
                       <Select
-                        value={record.type}
+                        value={record.types}
                         multi={true}
-                        options={serviceTypes.map(s => ({ label: s, value: s }))}
-                        onChange={this.onSelectChange.bind(this, 'type')}
+                        options={types.map(s => ({ label: s, value: s }))}
+                        onChange={this.onSelectChange.bind(this, 'types')}
                       />
                     </div>
                   </FormGroup>
@@ -250,12 +250,12 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <Label inputName="service_details">Service Details</Label>
+                    <Label inputName="details">Details</Label>
                     <div className="col-sm-9">
                       <textarea
                         className="form-control"
-                        name="service_details"
-                        value={record.service_details}
+                        name="details"
+                        value={record.details}
                         onChange={this.onFieldChange}
                       ></textarea>
                       <small style={{display: 'block'}}>
@@ -288,8 +288,8 @@ class NewRecord extends PureComponent {
                       />
                     </FormInput>
                   </FormGroup>
-
                 </div>
+
                 <button
                   ref="button"
                   style={{width: '100%'}}
