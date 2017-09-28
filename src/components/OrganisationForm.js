@@ -154,28 +154,6 @@ class NewRecord extends PureComponent {
                     </div>
                   </FormGroup>
 
-                  {/*
-                    <div className="form-group">
-                      <label htmlFor="serviceType">Service Type</label>
-                      <Select
-                        value={record.serviceType}
-                        multi={true}
-                        options={serviceTypes.map(s => ({ label: s, value: s }))}
-                        onChange={this.onSelectChange.bind(this, 'serviceType')}
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="organisationType">Organisation Type</label>
-                      <Select
-                        value={record.organisationType}
-                        multi={true}
-                        options={organisationTypes.map(s => ({ label: s, value: s }))}
-                        onChange={this.onSelectChange.bind(this, 'organisationType')}
-                      />
-                    </div>
-                  */}
-
                   {/**
                     <div className="form-group">
                       <label htmlFor="region"> Region </label>
