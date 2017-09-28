@@ -3,6 +3,13 @@ import PropTypes from 'prop-types'
 // import moment from 'moment'
 import Callback from '../Callback/Callback'
 import Button from './Button'
+
+const selfAssignButtonStyle = {
+  width: '210px',
+  marginBottom: '0.2rem',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden'
+}
 class Organisations extends PureComponent {
   state = {
     baseOrganisations: [],
@@ -207,8 +214,14 @@ class Organisations extends PureComponent {
                                 ? (
                                   org.selfAssign !== this.props.user.email
                                     ? (
-                                      <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
-                                  Assigned to: {org.selfAssign}
+                                      <Button disabled="true" style={selfAssignButtonStyle}>
+                                        <b>Assigned to:</b>
+                                        <span
+                                          title={org.selfAssign}
+                                          style={{ marginLeft: '3px' }}
+                                        >
+                                          {org.selfAssign}
+                                        </span>
                                       </Button>
                                     )
                                     : (
