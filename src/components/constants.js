@@ -58,7 +58,7 @@ export const formHelpers = {
 
   website: "Enter the service or organisation's website. If the organisation does not have a website, or if their website is extremely out of date, see if they are active on social media and, for example, use their Facebook page instead. If the organisation does not have an online presence, write 'n/a'.",
 
-  daysOpen: 'Check the boxes for the corresponding days on which the service or organisation is open.',
+  openingHours: 'Check the boxes for the corresponding days on which the service or organisation is open.',
 
   volunteerNeed: 'Ask the organisation whether they have a need for volunteers, and check the box if they do.'
 

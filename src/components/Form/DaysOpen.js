@@ -52,11 +52,11 @@ class DaysOpen extends Component {
         {days.map(({ name, label }, i) => (
           <div className="row" key={i}>
             <div className="checkbox col-sm-5">
-              <label htmlFor={`daysOpen.${name}`}>
+              <label htmlFor={`openingHours.${name}`}>
                 <InputField
                   type="checkbox"
-                  id={`daysOpen.${name}`}
-                  name={`daysOpen.${name}`}
+                  id={`openingHours.${name}`}
+                  name={`openingHours.${name}`}
                   checked={value[name] || false}
                   onChange={this.onChange.bind(this, name)}
                 />
@@ -70,16 +70,16 @@ class DaysOpen extends Component {
                   <InputField
                     type="time"
                     className="col-sm-6"
-                    id={`daysOpen.${name}.open`}
-                    name={`daysOpen.${name}.open`}
+                    id={`openingHours.${name}.open`}
+                    name={`openingHours.${name}.open`}
                     value={value[name].open}
                     onChange={this.onOpenChange.bind(this, name)}
                   />
                   <InputField
                     type="time"
                     className="col-sm-6"
-                    id={`daysOpen.${name}.close`}
-                    name={`daysOpen.${name}.close`}
+                    id={`openingHours.${name}.close`}
+                    name={`openingHours.${name}.close`}
                     value={value[name].close}
                     onChange={this.onCloseChange.bind(this, name)}
                   />

@@ -7,13 +7,24 @@ import DaysOpen from './Form/DaysOpen'
 import InputField from './Form/InputField'
 import Label from './Form/Label'
 
-import { serviceTypes } from './constants'
+import { serviceTypes, formHelpers } from './constants'
 
 import './OrganisationForm.css'
 
 const FormGroup = ({ children }) => <div className="col-sm-12" style={{ marginBottom: '1rem' }}>{children}</div>
 
 const FormInput = ({ children }) => <div className="col-sm-9">{children}</div>
+
+const FormHelper = ({ fieldName, placement }) => {
+  return (
+    <i
+      className="glyphicon glyphicon-question-sign"
+      data-toggle="tooltip"
+      data-placement={placement || 'right'}
+      title={formHelpers[fieldName]}
+    />
+  )
+}
 class NewRecord extends PureComponent {
   constructor (props) {
     super(props)
@@ -26,7 +37,7 @@ class NewRecord extends PureComponent {
      * history.push()
      */
     const { state } = props.location
-    const defaultRecord = { daysOpen: {} }
+    const defaultRecord = { openingHours: {} }
     this.state = {
       record: state ? state.record || defaultRecord : defaultRecord
     }
@@ -91,6 +102,11 @@ class NewRecord extends PureComponent {
     }
   }
 
+  componentDidMount () {
+    // After the component has rendered, we can activate the tooltips
+    $('[data-toggle="tooltip"]').tooltip()
+  }
+
   onFieldChange ({ target: { name, type, value, checked } }) {
     const { record } = this.state
 
@@ -132,7 +148,10 @@ class NewRecord extends PureComponent {
                 <div className={`${submitting ? 'submitting' : null} inputs`}>
 
                   <FormGroup>
-                    <Label inputName="name"> Name </Label>
+                    <Label inputName="name">
+                      Name
+                      <FormHelper fieldName='name' placement='bottom' />
+                    </Label>
                     <div className="col-sm-9">
                       <InputField
                         name="name"
@@ -285,12 +304,12 @@ class NewRecord extends PureComponent {
                   </FormGroup>
 
                   <FormGroup>
-                    <Label inputName="daysOpen"> Days Open </Label>
+                    <Label inputName="openingHours"> Opening Hours </Label>
                     <FormInput>
                       <DaysOpen
-                        value={record.daysOpen}
-                        onChange={(daysOpen) => this.setState({
-                          record: { ...this.state.record, daysOpen }
+                        value={record.openingHours}
+                        onChange={(openingHours) => this.setState({
+                          record: { ...this.state.record, openingHours }
                         })}
                       />
                     </FormInput>

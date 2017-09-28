@@ -32,7 +32,7 @@ const headingMapping = {
   'Phone': 'phone',
   'URL': 'url',
   'Email': 'email',
-  'Hours': 'hours',
+  'Hours': 'openingHours',
   'Volunteer need?': 'volunteerNeed'
 }
 
@@ -58,7 +58,7 @@ csvtojson({ noheader: false })
       } else if ((heading === 'expiry' || heading === 'updated') && !isNaN(new Date(obj[h]))) {
         // Convert `expiry` and `updated` to Dates
         converted[heading] = new Date(obj[h])
-      } else if (heading === 'hours') {
+      } else if (heading === 'openingHours') {
         converted[heading] = formatOpeningHours(obj[h])
       } else {
         // `Trim` text to removing beginning and trailing whitespace

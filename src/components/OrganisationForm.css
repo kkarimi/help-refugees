@@ -2,7 +2,7 @@
   -webkit-transition: max-height 0.6s;
   -moz-transition: max-height 0.6s;
   transition: max-height 0.6s;
-  overflow: hidden;
+  /* overflow: hidden; */
   max-height: 1350px;
 }
 
