@@ -21,6 +21,7 @@ class Organisations extends PureComponent {
     this.validateRecord = this.validateRecord.bind(this)
     this.deleteRecord = this.deleteRecord.bind(this)
     this.onSearch = this.onSearch.bind(this)
+    this.onUnassign = this.onUnassign.bind(this)
   }
 
   validateRecord (org) {
@@ -41,6 +42,15 @@ class Organisations extends PureComponent {
 
     ref
       .remove()
+      .then(() => this.updateOrganisations())
+      .catch(() => {})
+  }
+
+  onUnassign (org) {
+    const ref = this.props.db.ref(`organisations/${org.uid}`)
+
+    ref
+      .update({ selfAssign: null, status: 'needs_review' })
       .then(() => this.updateOrganisations())
       .catch(() => {})
   }
@@ -195,10 +205,19 @@ class Organisations extends PureComponent {
                           {
                             org.selfAssign
                             ? (
-                              org.selfAssign !== this.props.user.email &&
-                              <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
-                                Assigned to: {org.selfAssign}
-                              </Button>
+                              org.selfAssign !== this.props.user.email
+                              ? (
+                                <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
+                                  Assigned to: {org.selfAssign}
+                                </Button>
+                              )
+                              : (
+                                <Button
+                                  style={{ width: '210px', marginBottom: '0.2rem' }}
+                                  onClick={this.onUnassign.bind(this, org)}>
+                                  Unassign
+                                </Button>
+                              )
                             )
                             : (
                               <Button
