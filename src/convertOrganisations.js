@@ -103,14 +103,34 @@ csvtojson({ noheader: false })
       return org
     })
 
-    Promise
-      .all(organisations.map(o => ref.push().set(o)))
-      .then(() => {
-        console.log(`${count} organisations added`)
-        process.exit()
+    ref
+      .remove()
+      .then(function () {
+        Promise
+          .all(organisations.map(o => ref.push().set(o)))
+          .then(() => {
+            console.log(`${count} organisations added`)
+            process.exit()
+          })
+          .catch(() => {
+            console.log('Not all organisations added')
+            process.exit()
+          })
       })
-      .catch(() => {
-        console.log('Not all organisations added')
+      .catch(function () {
+        console.log('data could not be deleted')
         process.exit()
       })
   })
+
+function updateRecord (record) {
+  ref
+    .orderByChild("name")
+    .equalTo(record.name)
+    .on("value")
+    .then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        childSnapshot.update(record).then(_ => console.log(`${record.name} has been updated`))
+      });
+    });
+}
