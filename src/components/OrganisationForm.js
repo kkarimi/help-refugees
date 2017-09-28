@@ -139,167 +139,167 @@ class NewRecord extends PureComponent {
               Cancel
             </button>
           </div>
-            <div className="panel-body">
-              <form
-                action="#"
-                id="organisation-form"
-                onSubmit={this.handleSubmit}
-              >
-                <div className={`${submitting ? 'submitting' : null} inputs`}>
+          <div className="panel-body">
+            <form
+              action="#"
+              id="organisation-form"
+              onSubmit={this.handleSubmit}
+            >
+              <div className={`${submitting ? 'submitting' : null} inputs`}>
 
-                  <FormGroup>
-                    <Label inputName="name">
+                <FormGroup>
+                  <Label inputName="name">
                       Name
-                      <FormHelper fieldName='name' placement='bottom' />
-                    </Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="name"
-                        value={record.name}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                    <FormHelper fieldName='name' placement='bottom' />
+                  </Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="name"
+                      value={record.name}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="type"> Service Type </Label>
-                    <div className="col-sm-9">
-                      <Select
-                        value={record.types}
-                        multi={true}
-                        options={types.map(s => ({ label: s, value: s }))}
-                        onChange={this.onSelectChange.bind(this, 'types')}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="type"> Service Type </Label>
+                  <div className="col-sm-9">
+                    <Select
+                      value={record.types}
+                      multi={true}
+                      options={types.map(s => ({ label: s, value: s }))}
+                      onChange={this.onSelectChange.bind(this, 'types')}
+                    />
+                  </div>
+                </FormGroup>
 
-                  {/**
+                {/**
                     <div className="form-group">
                       <label htmlFor="region"> Region </label>
                       <InputField name="region" onChange={this.onFieldChange}/>
                     </div>
                    */}
 
-                  <FormGroup>
-                    <Label inputName="city"> City </Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="city"
-                        value={record.city}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="city"> City </Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="city"
+                      value={record.city}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="address"> Address </Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="address"
-                        value={record.address}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="address"> Address </Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="address"
+                      value={record.address}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="post_code"> Post Code </Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="post_code"
-                        value={record.post_code}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="postCode"> Post Code </Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="postCode"
+                      value={record.postCode}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="phone_number">Phone Number</Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="phone_number"
-                        type="tel"
-                        value={record.phone_number}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="phone">Phone Number</Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="phone"
+                      type="tel"
+                      value={record.phone}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="url">Url</Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="url"
-                        type="url"
-                        value={record.url}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="url">Url</Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="url"
+                      type="url"
+                      value={record.url}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="email">Email</Label>
-                    <div className="col-sm-9">
-                      <InputField
-                        name="email"
-                        type="email"
-                        value={record.email}
-                        onChange={this.onFieldChange}
-                      />
-                    </div>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="email">Email</Label>
+                  <div className="col-sm-9">
+                    <InputField
+                      name="email"
+                      type="email"
+                      value={record.email}
+                      onChange={this.onFieldChange}
+                    />
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="details">Details</Label>
-                    <div className="col-sm-9">
-                      <textarea
-                        className="form-control"
-                        name="details"
-                        value={record.details}
-                        onChange={this.onFieldChange}
-                      ></textarea>
-                      <small style={{display: 'block'}}>
+                <FormGroup>
+                  <Label inputName="details">Details</Label>
+                  <div className="col-sm-9">
+                    <textarea
+                      className="form-control"
+                      name="details"
+                      value={record.details}
+                      onChange={this.onFieldChange}
+                    ></textarea>
+                    <small style={{display: 'block'}}>
                         In a few sentences, provide details explaining
                         what the service is and what they offer in clear, simple language.
-                      </small>
-                    </div>
-                  </FormGroup>
+                    </small>
+                  </div>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="volunteer_need"> Volunteer Need </Label>
-                    <FormInput>
-                      <InputField
-                        type="checkbox"
-                        name="volunteer_need"
-                        value={record.volunteer_need}
-                        onChange={this.onFieldChange}
-                      />
-                    </FormInput>
-                  </FormGroup>
+                <FormGroup>
+                  <Label inputName="volunteer_need"> Volunteer Need </Label>
+                  <FormInput>
+                    <InputField
+                      type="checkbox"
+                      name="volunteer_need"
+                      value={record.volunteer_need}
+                      onChange={this.onFieldChange}
+                    />
+                  </FormInput>
+                </FormGroup>
 
-                  <FormGroup>
-                    <Label inputName="openingHours"> Opening Hours </Label>
-                    <FormInput>
-                      <DaysOpen
-                        value={record.openingHours}
-                        onChange={(openingHours) => this.setState({
-                          record: { ...this.state.record, openingHours }
-                        })}
-                      />
-                    </FormInput>
-                  </FormGroup>
-                </div>
+                <FormGroup>
+                  <Label inputName="openingHours"> Opening Hours </Label>
+                  <FormInput>
+                    <DaysOpen
+                      value={record.openingHours}
+                      onChange={(openingHours) => this.setState({
+                        record: { ...this.state.record, openingHours }
+                      })}
+                    />
+                  </FormInput>
+                </FormGroup>
+              </div>
 
-                <button
-                  ref="button"
-                  style={{width: '100%'}}
-                  className="btn btn-success"
-                  data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing..."
-                >
+              <button
+                ref="button"
+                style={{width: '100%'}}
+                className="btn btn-success"
+                data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing..."
+              >
                   Submit
-                </button>
-              </form>
-            </div>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     )

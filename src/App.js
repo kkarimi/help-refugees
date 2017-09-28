@@ -75,18 +75,18 @@ class App extends Component {
           <main className="container" style={{paddingTop: '1rem'}}>
             {
               isLoadingUser
-              ? <Callback/>
-              : (
-                <Switch>
-                  {/* <Route path="/home" render={(props) => <Home auth={auth} {...props} />} /> */}
-                  <MatchWhenNotAuthorized path="/login" component={LogIn} />
-                  <MatchWhenNotAuthorized path="/signup" component={SignUp} />
-                  <MatchWhenAuthorized path="/form" component={OrganisationForm} />
-                  <MatchWhenAuthorized path="/organisations" component={Organisations} />
-                  <MatchWhenAuthorized path="/" component={Organisations} />
-                  {/* <MatchWhenAuthorized pattern="/profile" component={Profile} /> */}
-                </Switch>
-              )
+                ? <Callback/>
+                : (
+                  <Switch>
+                    {/* <Route path="/home" render={(props) => <Home auth={auth} {...props} />} /> */}
+                    <MatchWhenNotAuthorized path="/login" component={LogIn} />
+                    <MatchWhenNotAuthorized path="/signup" component={SignUp} />
+                    <MatchWhenAuthorized path="/form" component={OrganisationForm} />
+                    <MatchWhenAuthorized path="/organisations" component={Organisations} />
+                    <MatchWhenAuthorized path="/" component={Organisations} />
+                    {/* <MatchWhenAuthorized pattern="/profile" component={Profile} /> */}
+                  </Switch>
+                )
             }
           </main>
         </div>

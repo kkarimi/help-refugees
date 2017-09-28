@@ -125,12 +125,12 @@ csvtojson({ noheader: false })
 
 function updateRecord (record) {
   ref
-    .orderByChild("name")
+    .orderByChild('name')
     .equalTo(record.name)
-    .on("value")
+    .on('value')
     .then(function (snapshot) {
       snapshot.forEach(function (childSnapshot) {
         childSnapshot.update(record).then(_ => console.log(`${record.name} has been updated`))
-      });
-    });
+      })
+    })
 }

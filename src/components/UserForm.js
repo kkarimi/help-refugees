@@ -30,7 +30,7 @@ class UserForm extends Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(user => {
-         // TODO Find way to set newsletter & organisation to user object
+        // TODO Find way to set newsletter & organisation to user object
       })
       .catch(({ message }) => {
         this.setState({
@@ -91,7 +91,7 @@ class UserForm extends Component {
                   onChange={this.onFieldChange}
                 />
                 Subscribe to newsletter?
-               </label>
+              </label>
             </div>
             <div className="form-group">
               <Button styleType="success"> Sign Up </Button>

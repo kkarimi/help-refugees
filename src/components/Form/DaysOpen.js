@@ -38,13 +38,13 @@ class DaysOpen extends Component {
     const value = this.state
 
     const days = [
-       { name: 'monday', label: 'Monday' },
-       { name: 'tuesday', label: 'Tuesday' },
-       { name: 'wednesday', label: 'Wednesday' },
-       { name: 'thursday', label: 'Thursday' },
-       { name: 'friday', label: 'Friday' },
-       { name: 'saturday', label: 'Saturday' },
-       { name: 'sunday', label: 'Sunday' }
+      { name: 'monday', label: 'Monday' },
+      { name: 'tuesday', label: 'Tuesday' },
+      { name: 'wednesday', label: 'Wednesday' },
+      { name: 'thursday', label: 'Thursday' },
+      { name: 'friday', label: 'Friday' },
+      { name: 'saturday', label: 'Saturday' },
+      { name: 'sunday', label: 'Sunday' }
     ]
 
     return (

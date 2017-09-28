@@ -114,10 +114,10 @@ class Organisations extends PureComponent {
 
     state.organisations = (
       state.searchText.length
-      ? this.state.baseOrganisations.filter(function (org) {
-        return new RegExp(state.searchText, 'ig').test(JSON.stringify(org))
-      })
-      : this.state.baseOrganisations
+        ? this.state.baseOrganisations.filter(function (org) {
+          return new RegExp(state.searchText, 'ig').test(JSON.stringify(org))
+        })
+        : this.state.baseOrganisations
     )
 
     this.setState(state)
@@ -175,67 +175,67 @@ class Organisations extends PureComponent {
                 {
                   /* TODO Replace with "isLoading" */
                   isLoading
-                  ? <tr><td colSpan="4"><Callback/></td></tr>
-                  : (
-                    organisations.map((org, i) => (
-                      <tr key={i}>
-                        <td>{ this.getStatusText(org.status) }</td>
-                        {/* <td>{moment(org.updated).format('MMM Do YY')}</td> */}
-                        {/* <td>{moment(org.expiry).format('MMM Do YY')}</td> */}
-                        <td>
-                          <div>
-                            <p style={{ fontSize: '13px', fontWeight: 700 }}>{org.name}</p>
-                            <p style={{ fontSize: '10px' }}>{org.details}</p>
-                            { org.url && <a style={{ fontSize: '10px' }} href={org.url}>{org.url}</a> }
-                          </div>
-
-                        </td>
-                        <td>
-                          {org.type && org.type.map((s, i) => (
-                            <div
-                              key={i}
-                              className="label label-default"
-                              style={{ display: 'block', marginBottom: '0.5rem' }}>
-                              {s}
+                    ? <tr><td colSpan="4"><Callback/></td></tr>
+                    : (
+                      organisations.map((org, i) => (
+                        <tr key={i}>
+                          <td>{ this.getStatusText(org.status) }</td>
+                          {/* <td>{moment(org.updated).format('MMM Do YY')}</td> */}
+                          {/* <td>{moment(org.expiry).format('MMM Do YY')}</td> */}
+                          <td>
+                            <div>
+                              <p style={{ fontSize: '13px', fontWeight: 700 }}>{org.name}</p>
+                              <p style={{ fontSize: '10px' }}>{org.details}</p>
+                              { org.url && <a style={{ fontSize: '10px' }} href={org.url}>{org.url}</a> }
                             </div>
-                          ))}
-                        </td>
-                        {/* <td>{ org.updated_by }</td> */}
-                        <td>
-                          {
-                            org.selfAssign
-                            ? (
-                              org.selfAssign !== this.props.user.email
-                              ? (
-                                <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
+
+                          </td>
+                          <td>
+                            {org.type && org.type.map((s, i) => (
+                              <div
+                                key={i}
+                                className="label label-default"
+                                style={{ display: 'block', marginBottom: '0.5rem' }}>
+                                {s}
+                              </div>
+                            ))}
+                          </td>
+                          {/* <td>{ org.updated_by }</td> */}
+                          <td>
+                            {
+                              org.selfAssign
+                                ? (
+                                  org.selfAssign !== this.props.user.email
+                                    ? (
+                                      <Button disabled="true" style={{ width: '210px', marginBottom: '0.2rem' }}>
                                   Assigned to: {org.selfAssign}
-                                </Button>
-                              )
-                              : (
-                                <Button
-                                  style={{ width: '210px', marginBottom: '0.2rem' }}
-                                  onClick={this.onUnassign.bind(this, org)}>
+                                      </Button>
+                                    )
+                                    : (
+                                      <Button
+                                        style={{ width: '210px', marginBottom: '0.2rem' }}
+                                        onClick={this.onUnassign.bind(this, org)}>
                                   Unassign
-                                </Button>
-                              )
-                            )
-                            : (
-                              <Button
-                                styleType="success"
-                                style={{ width: '210px' }}
-                                onClick={this.selfAssign.bind(this, org)}
-                              >
+                                      </Button>
+                                    )
+                                )
+                                : (
+                                  <Button
+                                    styleType="success"
+                                    style={{ width: '210px' }}
+                                    onClick={this.selfAssign.bind(this, org)}
+                                  >
                                 Self-assign
-                              </Button>
-                            )
-                          }
-                          {
+                                  </Button>
+                                )
+                            }
+                            {
                             /**
                              * Show edit button if:
                              * * organisation is not selfAssigned
                              * * the user is the same as the one assigned to the organisation
                              */
-                            (org.selfAssign && org.selfAssign === this.props.user.email) &&
+                              (org.selfAssign && org.selfAssign === this.props.user.email) &&
                             (
                               <Button
                                 onClick={() => {
@@ -245,9 +245,9 @@ class Organisations extends PureComponent {
                                 Edit
                               </Button>
                             )
-                          }
-                          {
-                            (admin || org.selfAssign === this.props.user.email) &&
+                            }
+                            {
+                              (admin || org.selfAssign === this.props.user.email) &&
                             (
                               <Button
                                 onClick={this.validateRecord.bind(this, org)}
@@ -255,9 +255,9 @@ class Organisations extends PureComponent {
                                 Validate
                               </Button>
                             )
-                          }
-                          {
-                            admin &&
+                            }
+                            {
+                              admin &&
                             (
                               <Button
                                 onClick={this.deleteRecord.bind(this, org)}
@@ -265,11 +265,11 @@ class Organisations extends PureComponent {
                                 Delete
                               </Button>
                             )
-                          }
-                        </td>
-                      </tr>
-                    ))
-                  )
+                            }
+                          </td>
+                        </tr>
+                      ))
+                    )
                 }
               </tbody>
             </table>
