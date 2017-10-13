@@ -31,4 +31,7 @@ function formatOpeningHours (hours) {
   }, {})
 }
 
+if (require.main === module) {
+  console.log(JSON.stringify(formatOpeningHours(argv.hours), null, 2))
+}
 module.exports = formatOpeningHours
