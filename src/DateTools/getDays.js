@@ -3,7 +3,7 @@ const DAYS = require('./constants').DAYS
 
 function getDays (d) {
   // Do not perform searching logic if `d` is only one day
-  if (d.indexOf('-') === -1) return d.toLowerCase()
+  if (d.indexOf('-') === -1) return [d.toLowerCase()]
   else d = d.toLowerCase()
 
   /**
