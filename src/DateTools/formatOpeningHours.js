@@ -1,3 +1,4 @@
+const argv = require('yargs').argv
 const _ = require('lodash')
 const getDays = require('./getDays')
 const formatHours = require('./formatHours')
@@ -14,8 +15,8 @@ function formatOpeningHours (hours) {
     let day = getDays(h.split(': ')[0])
     let hours = h.split(': ')[1]
 
-    if (day === 'open 24/7') {
-      day = 'monday-sunday'
+    if (new RegExp('open').test(day)) {
+      day = getDays('monday-sunday')
       hours = '0:00-23:59'
     }
 
@@ -29,6 +30,8 @@ function formatOpeningHours (hours) {
 
     return a
   }, {})
+
+  return converted
 }
 
 if (require.main === module) {
