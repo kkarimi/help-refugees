@@ -15,5 +15,6 @@ node_modules
 # private
 .env*
 *.log
+*.csv
 firebaseServiceAccount.json
 googleServiceAccount.json

@@ -1,15 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-// import moment from 'moment'
 import Callback from '../Callback/Callback'
 import Button from './Button'
-
-const selfAssignButtonStyle = {
-  width: '210px',
-  marginBottom: '0.2rem',
-  textOverflow: 'ellipsis',
-  overflow: 'hidden'
-}
+import AssignmentButton from './AssignmentButton'
 class Organisations extends PureComponent {
   state = {
     baseOrganisations: [],
@@ -198,7 +191,7 @@ class Organisations extends PureComponent {
 
                           </td>
                           <td>
-                            {org.type && org.type.map((s, i) => (
+                            {org.types && org.types.map((s, i) => (
                               <div
                                 key={i}
                                 className="label label-default"
@@ -209,39 +202,12 @@ class Organisations extends PureComponent {
                           </td>
                           {/* <td>{ org.updated_by }</td> */}
                           <td>
-                            {
-                              org.selfAssign
-                                ? (
-                                  org.selfAssign !== this.props.user.email
-                                    ? (
-                                      <Button disabled="true" style={selfAssignButtonStyle}>
-                                        <b>Assigned to:</b>
-                                        <span
-                                          title={org.selfAssign}
-                                          style={{ marginLeft: '3px' }}
-                                        >
-                                          {org.selfAssign}
-                                        </span>
-                                      </Button>
-                                    )
-                                    : (
-                                      <Button
-                                        style={{ width: '210px', marginBottom: '0.2rem' }}
-                                        onClick={this.onUnassign.bind(this, org)}>
-                                  Unassign
-                                      </Button>
-                                    )
-                                )
-                                : (
-                                  <Button
-                                    styleType="success"
-                                    style={{ width: '210px' }}
-                                    onClick={this.selfAssign.bind(this, org)}
-                                  >
-                                Self-assign
-                                  </Button>
-                                )
-                            }
+                            <AssignmentButton
+                              selfAssigned={org.selfAssign === this.props.user.email}
+                              org={org}
+                              onSelfAssign={this.selfAssign}
+                              onUnassign={this.onUnassign}
+                            />
                             {
                             /**
                              * Show edit button if:
@@ -261,23 +227,23 @@ class Organisations extends PureComponent {
                             }
                             {
                               (admin || org.selfAssign === this.props.user.email) &&
-                            (
-                              <Button
-                                onClick={this.validateRecord.bind(this, org)}
-                              >
-                                Validate
-                              </Button>
-                            )
+                              (
+                                <Button
+                                  onClick={this.validateRecord.bind(this, org)}
+                                >
+                                  Validate
+                                </Button>
+                              )
                             }
                             {
                               admin &&
-                            (
-                              <Button
-                                onClick={this.deleteRecord.bind(this, org)}
-                              >
-                                Delete
-                              </Button>
-                            )
+                              (
+                                <Button
+                                  onClick={this.deleteRecord.bind(this, org)}
+                                >
+                                  Delete
+                                </Button>
+                              )
                             }
                           </td>
                         </tr>

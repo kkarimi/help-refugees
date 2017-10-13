@@ -1,22 +1,22 @@
-// const path = require('path')
+/* eslint no-console: 0 */
 const _ = require('lodash')
 const winston = require('winston')
 const formatOpeningHours = require('../src/DateTools/formatOpeningHours')
 const getFromGoogleSheets = require('./getFromGoogleSheets')
 
-// var admin = require('firebase-admin')
-// var serviceAccount = require('../firebaseServiceAccount.json')
+var admin = require('firebase-admin')
+var serviceAccount = require('../firebaseServiceAccount.json')
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: 'https://stone-nucleus-173311.firebaseio.com'
-// })
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://stone-nucleus-173311.firebaseio.com'
+})
 
-// const db = admin.database() // the real-time database
+const db = admin.database() // the real-time database
 
-// const ref = db.ref().child('organisations')
+const ref = db.ref().child('organisations')
 
-// let count = 0
+let count = 0
 
 const headingMapping = {
   'ov': 'updated_by',
@@ -109,39 +109,26 @@ getFromGoogleSheets('1cgkkCwMo70T36Prkhxbj0DWiSLgDahUCWhS63O4_40k', 'Old')
     })
   })
   .then(function (converted) {
-    console.log(converted[0])
     winston.info(`Number of records converted: ${converted.length}`)
+    return converted
   })
-//   })
-//   .on('done', function () {
-//     ref
-//       .remove()
-//       .then(function () {
-//         Promise
-//           .all(organisations.map(o => ref.push().set(o)))
-//           .then(() => {
-//             console.log(`${count} organisations added`)
-//             process.exit()
-//           })
-//           .catch(() => {
-//             console.log('Not all organisations added')
-//             process.exit()
-//           })
-//       })
-//       .catch(function () {
-//         console.log('data could not be deleted')
-//         process.exit()
-//       })
-//   })
-
-// function updateRecord (record) {
-//   ref
-//     .orderByChild('name')
-//     .equalTo(record.name)
-//     .on('value')
-//     .then(function (snapshot) {
-//       snapshot.forEach(function (childSnapshot) {
-//         childSnapshot.update(record).then(_ => console.log(`${record.name} has been updated`))
-//       })
-//     })
-// }
+  .then(function (organisations) {
+    ref
+      .remove()
+      .then(function () {
+        Promise
+          .all(organisations.map(o => ref.push().set(o)))
+          .then(() => {
+            console.log(`${count} organisations added`)
+            process.exit()
+          })
+          .catch(() => {
+            console.log('Not all organisations added')
+            process.exit()
+          })
+      })
+      .catch(function () {
+        console.log('data could not be deleted')
+        process.exit()
+      })
+  })
