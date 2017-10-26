@@ -30,8 +30,6 @@ function formatOpeningHours (hours) {
 
     return a
   }, {})
-
-  return converted
 }
 
 if (require.main === module) {
