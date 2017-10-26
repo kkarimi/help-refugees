@@ -109,26 +109,33 @@ getFromGoogleSheets('1cgkkCwMo70T36Prkhxbj0DWiSLgDahUCWhS63O4_40k', 'Old')
     })
   })
   .then(function (converted) {
-    winston.info(`Number of records converted: ${converted.length}`)
+    winston.info(`${converted.length} converted`)
     return converted
   })
   .then(function (organisations) {
-    ref
-      .remove()
-      .then(function () {
-        Promise
-          .all(organisations.map(o => ref.push().set(o)))
-          .then(() => {
-            console.log(`${count} organisations added`)
-            process.exit()
-          })
-          .catch(() => {
-            console.log('Not all organisations added')
-            process.exit()
-          })
-      })
-      .catch(function () {
-        console.log('data could not be deleted')
-        process.exit()
-      })
+    return ref.remove().then(() => organisations)
+  })
+  .then(function (organisations) {
+    winston.info('All organisations removed')
+
+    return (
+      Promise
+        .all(
+          organisations
+            .map(o =>
+              ref
+                .push()
+                .set(o)
+                .catch(err => err)
+            )
+        )
+    )
+  })
+  .then((_) => {
+    winston.info(`${_.length} organisations added`)
+    process.exit()
+  })
+  .catch(function (err) {
+    winston.error(`Error: ${JSON.stringify(err, null, 2)}`)
+    process.exit()
   })
