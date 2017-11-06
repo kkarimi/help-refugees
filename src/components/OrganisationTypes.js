@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Select from 'react-select'
-import { organisationTypes } from './constants'
+import { types } from './constants'
 
-export default ({ value, onChange }) => {
-  return (
-    <div className="form-group">
-      <label htmlFor="organisationType">Organisation Type</label>
-      <Select
-        value={value}
-        multi={true}
-        options={organisationTypes.map(s => ({ label: s, value: s }))}
-        onChange={onChange}
-      />
-    </div>
-  )
+class OrganisationTypes extends Component {
+  static propTypes = {
+    value: PropTypes.array,
+    onChange: PropTypes.func,
+    hideLabel: PropTypes.bool
+  }
+
+  render () {
+    const { value, onChange, hideLabel } = this.props
+    return (
+      <div>
+        {!hideLabel && <label htmlFor="organisationType">Organisation Type</label>}
+        <Select
+          value={value}
+          multi={true}
+          options={types.map(s => ({ label: s, value: s }))}
+          onChange={onChange}
+        />
+      </div>
+    )
+  }
 }
+
+export default OrganisationTypes

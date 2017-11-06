@@ -21,17 +21,17 @@ export const types = [
   'Women'
 ]
 
-export const organisationTypes = [
-  'NGO / Charity',
-  'State',
-  'Local government',
-  'Grassroots org/ Community',
-  'Religious',
-  'Other',
-  'Website',
-  'Business',
-  'Legal firm'
-]
+// export const organisationTypes = [
+//   'NGO / Charity',
+//   'State',
+//   'Local government',
+//   'Grassroots org/ Community',
+//   'Religious',
+//   'Other',
+//   'Website',
+//   'Business',
+//   'Legal firm'
+// ]
 
 export const formHelpers = {
   name: 'Give the official name of the organisation, e.g. Help Refugees.',

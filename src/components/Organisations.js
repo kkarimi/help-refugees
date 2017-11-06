@@ -1,8 +1,14 @@
+/* eslint no-console: 0 */
+
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
+
 import Callback from '../Callback/Callback'
 import { validateRecord, selfAssign } from '../firebase'
 import OrganisatonRow from './OrganisationRow'
+import Types from './OrganisationTypes'
+
 class Organisations extends PureComponent {
   state = {
     baseOrganisations: [],
@@ -104,6 +110,21 @@ class Organisations extends PureComponent {
     this.setState(state)
   }
 
+  filterByCategory (selected) {
+    const types = selected.map(o => o.value)
+
+    this.setState({
+      organisations: (
+        selected.length === 0
+        ? this.state.baseOrganisations
+        : this.state.baseOrganisations.filter(function (org) {
+          // Select organisations which have a type that is selected
+          return _.intersection(org.types, types).length > 0
+        })
+      )
+    })
+  }
+
   render () {
     const { organisations, isLoading, searchText } = this.state
     const { admin } = this.props
@@ -127,13 +148,19 @@ class Organisations extends PureComponent {
               </div>
             </div>
             <div className="row" style={{ paddingTop: '8px' }}>
-              <div className="col-sm-12">
+              <div className="col-sm-6">
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="Filter"
+                  placeholder="Search"
                   value={searchText || ''}
                   onChange={this.onSearch}
+                />
+              </div>
+              <div className="col-sm-6" style={{ fontSize: 14 }}>
+                <Types
+                  hideLabel={true}
+                  onChange={this.filterByCategory.bind(this)}
                 />
               </div>
             </div>
