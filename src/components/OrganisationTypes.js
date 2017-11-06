@@ -10,18 +10,22 @@ class OrganisationTypes extends Component {
     hideLabel: PropTypes.bool
   }
 
+  state = {
+
+  }
+
   render () {
-    const { value, onChange, hideLabel } = this.props
+    const { value, onChange } = this.props
+
     return (
-      <div>
-        {!hideLabel && <label htmlFor="organisationType">Organisation Type</label>}
-        <Select
-          value={value}
-          multi={true}
-          options={types.map(s => ({ label: s, value: s }))}
-          onChange={onChange}
-        />
-      </div>
+      <Select
+        multi={true}
+        clearable={true}
+        options={types.map(s => ({ label: s, value: s }))}
+        value={value}
+        onChange={onChange}
+        placeholder="Types..."
+      />
     )
   }
 }

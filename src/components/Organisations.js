@@ -114,6 +114,7 @@ class Organisations extends PureComponent {
     const types = selected.map(o => o.value)
 
     this.setState({
+      selectedTypes: selected,
       organisations: (
         selected.length === 0
         ? this.state.baseOrganisations
@@ -126,7 +127,7 @@ class Organisations extends PureComponent {
   }
 
   render () {
-    const { organisations, isLoading, searchText } = this.state
+    const { organisations, isLoading, searchText, selectedTypes } = this.state
     const { admin } = this.props
 
     return (
@@ -159,7 +160,7 @@ class Organisations extends PureComponent {
               </div>
               <div className="col-sm-6" style={{ fontSize: 14 }}>
                 <Types
-                  hideLabel={true}
+                  value={selectedTypes}
                   onChange={this.filterByCategory.bind(this)}
                 />
               </div>
