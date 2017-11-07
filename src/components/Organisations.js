@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import Callback from '../Callback/Callback'
-import { validateRecord, selfAssign } from '../firebase'
+import { validateRecord } from '../firebase'
 import OrganisatonRow from './OrganisationRow'
 import Types from './OrganisationTypes'
 
@@ -17,7 +17,9 @@ class Organisations extends PureComponent {
   }
 
   static propTypes = {
-    admin: PropTypes.bool.isRequired
+    admin: PropTypes.bool.isRequired,
+    db: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -27,7 +29,6 @@ class Organisations extends PureComponent {
     this.validateRecord = this.validateRecord.bind(this)
     this.deleteRecord = this.deleteRecord.bind(this)
     this.onSearch = this.onSearch.bind(this)
-    this.onUnassign = this.onUnassign.bind(this)
   }
 
   /**
@@ -43,23 +44,8 @@ class Organisations extends PureComponent {
       .catch(() => {})
   }
 
-  onUnassign (org) {
-    const ref = this.props.db.ref(`organisations/${org.uid}`)
-
-    ref
-      .update({ selfAssign: null, status: 'needs_review' })
-      .then(() => this.updateOrganisations())
-      .catch(() => {})
-  }
-
   validateRecord (org) {
     validateRecord(org)
-      .then(() => this.updateOrganisations())
-      .catch(() => {})
-  }
-
-  selfAssign (org) {
-    selfAssign(org)
       .then(() => this.updateOrganisations())
       .catch(() => {})
   }
@@ -191,9 +177,8 @@ class Organisations extends PureComponent {
                           key={org.uid}
                           admin={admin}
                           org={org}
+                          db={this.props.db}
                           user={this.props.user}
-                          selfAssign={this.selfAssign}
-                          onUnassign={this.onUnassign}
                           validateRecord={this.validateRecord}
                           deleteRecord={this.deleteRecord}
                         />

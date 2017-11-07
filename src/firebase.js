@@ -41,3 +41,11 @@ export function selfAssign (org) {
       .update({ selfAssign: auth.currentUser.email, status: 'in_progress' })
   )
 }
+
+export function unassign (org) {
+  return (
+    db
+      .ref(`organisations/${org.uid}`)
+      .update({ selfAssign: null, status: 'needs_review' })
+  )
+}

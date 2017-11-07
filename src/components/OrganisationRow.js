@@ -2,21 +2,40 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from './Button'
 import AssignmentButton from './AssignmentButton'
+import { selfAssign, unassign } from '../firebase'
+import Callback from '../Callback/Callback'
 
 class OrganisationRow extends Component {
-  state = {
+  constructor (props) {
+    super(props)
 
+    this.onSelfAssign = this.onSelfAssign.bind(this)
+    this.onUnassign = this.onUnassign.bind(this)
+
+    this.state = {
+      org: props.org,
+      selfAssigned: props.org.selfAssign === props.user.email
+    }
   }
 
   static propTypes = {
     org: PropTypes.object,
     admin: PropTypes.bool,
     user: PropTypes.object,
-    selfAssign: PropTypes.func,
-    onUnassign: PropTypes.func,
     validateRecord: PropTypes.func,
     deleteRecord: PropTypes.func,
     history: PropTypes.object
+  }
+
+  updateRow (state) {
+    this.props.db
+      .ref()
+      .child(`organisations/${this.props.org.uid}`)
+      .once('value', snap => {
+        setTimeout(() => {
+          this.setState({ org: snap.val(), loading: false, ...state })
+        }, 1000)
+      })
   }
 
   getStatusText (status) {
@@ -32,8 +51,27 @@ class OrganisationRow extends Component {
     }
   }
 
+  onSelfAssign (org) {
+    this.setState({ loading: true })
+
+    selfAssign(org)
+      .then(() => this.updateRow({ selfAssigned: true }))
+      .catch(() => {})
+  }
+
+  onUnassign (org) {
+    this.setState({ loading: true })
+
+    unassign(org)
+      .then(_ => this.updateRow({ selfAssigned: false }))
+      .catch(() => {})
+  }
+
   render () {
-    const { org, admin, user, selfAssign, validateRecord, deleteRecord, onUnassign, history } = this.props
+    const { admin, validateRecord, deleteRecord, history } = this.props
+    const { org, selfAssigned, loading } = this.state
+
+    if (loading) return (<tr><td colSpan="4"><Callback style={{ textAlign: 'center' }}/></td></tr>)
 
     return (
       <tr>
@@ -61,10 +99,10 @@ class OrganisationRow extends Component {
         {/* <td>{ org.updated_by }</td> */}
         <td>
           <AssignmentButton
-            selfAssigned={org.selfAssign === user.email}
+            selfAssigned={selfAssigned}
             org={org}
-            onSelfAssign={selfAssign}
-            onUnassign={onUnassign}
+            onSelfAssign={this.onSelfAssign}
+            onUnassign={this.onUnassign}
           />
           {
           /**
@@ -72,7 +110,7 @@ class OrganisationRow extends Component {
            * * organisation is not selfAssigned
            * * the user is the same as the one assigned to the organisation
            */
-            (org.selfAssign && org.selfAssign === user.email) &&
+            (org.selfAssign && selfAssigned) &&
           (
             <Button
               onClick={() => {
@@ -84,7 +122,7 @@ class OrganisationRow extends Component {
           )
           }
           {
-            (admin || org.selfAssign === user.email) &&
+            (admin || selfAssigned) &&
             (
               <Button
                 onClick={validateRecord.bind(this, org)}
