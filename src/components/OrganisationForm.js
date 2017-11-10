@@ -6,6 +6,7 @@ import Select from './Form/ReactSelect'
 import DaysOpen from './Form/DaysOpen'
 import InputField from './Form/InputField'
 import Label from './Form/Label'
+import LocationInput from './Form/LocationInput'
 
 import { types, formHelpers } from './constants'
 
@@ -46,6 +47,9 @@ class NewRecord extends PureComponent {
   handleSubmit (event) {
     const { record } = this.state
     event.preventDefault()
+
+    // If user presses enter in an input field, do not submit form
+    if (event.keyCode === 13) return false
 
     this.setState({ submitting: true })
 
@@ -194,22 +198,7 @@ class NewRecord extends PureComponent {
                 <FormGroup>
                   <Label inputName="address"> Address </Label>
                   <div className="col-sm-9">
-                    <InputField
-                      name="address"
-                      value={record.address}
-                      onChange={this.onFieldChange}
-                    />
-                  </div>
-                </FormGroup>
-
-                <FormGroup>
-                  <Label inputName="postCode"> Post Code </Label>
-                  <div className="col-sm-9">
-                    <InputField
-                      name="postCode"
-                      value={record.postCode}
-                      onChange={this.onFieldChange}
-                    />
+                    <LocationInput />
                   </div>
                 </FormGroup>
 

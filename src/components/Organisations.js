@@ -13,7 +13,9 @@ class Organisations extends PureComponent {
   state = {
     baseOrganisations: [],
     organisations: {},
-    isLoading: true
+    isLoading: true,
+    startCursor: 0,
+    endCursor: 10
   }
 
   static propTypes = {
@@ -29,6 +31,10 @@ class Organisations extends PureComponent {
     this.validateRecord = this.validateRecord.bind(this)
     this.deleteRecord = this.deleteRecord.bind(this)
     this.onSearch = this.onSearch.bind(this)
+  }
+
+  componentWillMount () {
+    this.updateOrganisations()
   }
 
   /**
@@ -64,7 +70,10 @@ class Organisations extends PureComponent {
 
     const ref = this.props.db.ref().child('organisations')
 
-    ref.once('value', snap => {
+    ref
+    .orderByChild('name')
+    .limitToLast(5)
+    .once('value', snap => {
       const value = snap.val() || {}
       const baseOrganisations = Object.keys(value).map(function (org) {
         return { ...value[org], uid: org }
@@ -76,10 +85,6 @@ class Organisations extends PureComponent {
         organisations: baseOrganisations
       })
     })
-  }
-
-  componentWillMount () {
-    this.updateOrganisations()
   }
 
   onSearch (evt) {
