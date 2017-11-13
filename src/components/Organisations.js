@@ -64,7 +64,7 @@ class Organisations extends PureComponent {
 
     const ref = this.props.db.ref().child('organisations')
 
-    ref.once('value', snap => {
+    ref.limitToFirst(10).once('value', snap => {
       const value = snap.val() || {}
       const baseOrganisations = Object.keys(value).map(function (org) {
         return { ...value[org], uid: org }
