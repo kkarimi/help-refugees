@@ -9,6 +9,9 @@ node_modules
 # production
 /build
 
+# server
+/server
+
 # misc
 .DS_Store
 
@@ -18,3 +21,4 @@ node_modules
 *.csv
 firebaseServiceAccount.json
 googleServiceAccount.json
+cloud_sql_proxy
