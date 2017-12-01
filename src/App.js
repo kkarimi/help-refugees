@@ -6,6 +6,7 @@ import { auth, db } from './firebase'
 import Organisations from './components/Organisations'
 import OrganisationForm from './components/OrganisationForm'
 
+import Home from './components/Home'
 import LogIn from './components/LogIn'
 import SignUp from './components/UserForm'
 import Callback from './Callback/Callback'
@@ -83,7 +84,13 @@ class App extends Component {
                     <MatchWhenNotAuthorized path="/signup" component={SignUp} />
                     <MatchWhenAuthorized path="/form" component={OrganisationForm} />
                     <MatchWhenAuthorized path="/organisations" component={Organisations} />
-                    <MatchWhenAuthorized path="/" component={Organisations} />
+                    <Route path="/" render={renderProps => (
+                      user ? (
+                        <Organisations {...renderProps} auth={auth} db={db} admin={admin} user={user} />
+                      ) : (
+                        <Home db={db} />
+                      )
+                    )}/>
                     {/* <MatchWhenAuthorized pattern="/profile" component={Profile} /> */}
                   </Switch>
                 )
