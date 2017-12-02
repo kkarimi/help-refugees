@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import LogIn from './LogIn'
 
 describe('<Login/>', () => {
-  it('renders children when passed in', () => {
+  test('renders children when passed in', () => {
     const wrapper = shallow((
       <BrowserRouter>
         <LogIn>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import Callback from '../Callback/Callback'
-import { validateRecord } from '../firebase'
+import { validateRecord } from '../database'
 import OrganisatonRow from './OrganisationRow'
 import Types from './OrganisationTypes'
 

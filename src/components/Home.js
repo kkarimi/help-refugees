@@ -25,11 +25,14 @@ class Home extends Component {
     return (
       <div>
         <ul>
-          {this.state.organisations.map((org, i) => {
-            return (
-              <li key={i}> {org.name} </li>
-            )
-          })}
+          {this.state.organisations
+            ? this.state.organisations.map((org, i) => {
+              return (
+                <li key={i}> {org.name} </li>
+              )
+            })
+            : <div/>
+          }
         </ul>
       </div>
     )

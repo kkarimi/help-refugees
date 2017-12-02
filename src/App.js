@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
 import history from './history'
-import { auth, db } from './firebase'
+import { auth, db } from './database'
 
 import Organisations from './components/Organisations'
 import OrganisationForm from './components/OrganisationForm'

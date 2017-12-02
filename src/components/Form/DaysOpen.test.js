@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import DaysOpen from './DaysOpen'
 
 describe('DaysOpen', () => {
-  it('should render without crashing', () => {
+  test('should render without crashing', () => {
     expect(<DaysOpen/>).to.not.be.null
   })
 })

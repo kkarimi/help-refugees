@@ -25,7 +25,7 @@ const db = {
 }
 
 describe('<Home/>', function () {
-  it('should render organisations', function () {
+  test('should render organisations', function () {
     const element = mount(<Home db={db}/>)
     expect(element.find('li').at(0).text()).toEqual(' foo ')
     expect(element.find('li').at(1).text()).toEqual(' bar ')

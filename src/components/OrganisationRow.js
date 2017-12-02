@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from './Button'
 import AssignmentButton from './AssignmentButton'
-import { selfAssign, unassign } from '../firebase'
+import { selfAssign, unassign } from '../database'
 import Callback from '../Callback/Callback'
 
 class OrganisationRow extends Component {
