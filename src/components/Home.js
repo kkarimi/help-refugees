@@ -10,6 +10,7 @@ class Home extends Component {
     this.setState({ loading: true })
 
     ref
+      .limitToFirst(10)
       .once('value')
       .then(snapshot => {
         this.setState({
