@@ -1,25 +1,37 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import Home from './Home'
+import { setTimeout } from 'timers'
 
 describe('<Home/>', function () {
-  test('should render organisations', function () {
-    const db = {
-      ref () {
-        return {
-          once () {
-            return new Promise(function (resolve) {
-              resolve({
-                val: () => ({
-                  foo: { name: 'foo' },
-                  bar: { name: 'bar' }
-                })
-              })
-            })
-          }
-        }
+  let promise
+  let db
+  let ref
+
+  beforeEach(function () {
+    ref = {
+      limitToFirst () {
+        return this
+      },
+      once () {
+        return promise
       }
     }
+
+    db = {
+      ref: () => ref
+    }
+  })
+  test('should render organisations', function () {
+    promise = new Promise(function (resolve) {
+      resolve({
+        val: () => ({
+          foo: { name: 'foo' },
+          bar: { name: 'bar' }
+        })
+      })
+    })
+
     const element = mount(<Home db={db}/>)
 
     // Test that loading spinner is shown before promise is resolved
@@ -30,6 +42,17 @@ describe('<Home/>', function () {
     setTimeout(() => {
       expect(element.find('li').at(0).text()).toEqual(' foo ')
       expect(element.find('li').at(1).text()).toEqual(' bar ')
+    }, 1)
+  })
+
+  test('it should set error', function () {
+    promise = new Promise(function (resolve, reject) {
+      reject({ message: 'foo' }) // eslint-disable-line
+    })
+
+    const element = mount(<Home db={db} />)
+    setTimeout(function () {
+      expect(element.state().error).toEqual('foo')
     }, 1)
   })
 })
