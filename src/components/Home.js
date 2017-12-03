@@ -32,12 +32,15 @@ class Home extends Component {
     }
 
     return (
-      <div>
-        <ul>
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          Organisations
+        </div>
+        <ul className="list-group">
           {this.state.organisations
             ? this.state.organisations.map((org, i) => {
               return (
-                <li key={i}> {org.name} </li>
+                <li className="list-group-item" key={i}> {org.name} </li>
               )
             })
             : <div/>
