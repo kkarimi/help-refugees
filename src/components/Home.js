@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import Callback from '../Callback/Callback'
 class Home extends Component {
   state = {
 
@@ -7,21 +7,29 @@ class Home extends Component {
 
   componentWillMount () {
     const ref = this.props.db.ref('organisations')
+    this.setState({ loading: true })
+
     ref
-      .once('value', snapshot => {
+      .once('value')
+      .then(snapshot => {
         this.setState({
+          loading: false,
           organisations: Object.keys(snapshot.val()).map(k => ({
             ...snapshot.val()[k],
             id: k
           }))
         })
       })
-      .catch(function (err) {
-
+      .catch(err => {
+        this.setState({ loading: false, error: err.message })
       })
   }
 
   render () {
+    if (this.state.loading) {
+      return <Callback/>
+    }
+
     return (
       <div>
         <ul>
