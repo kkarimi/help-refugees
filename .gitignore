@@ -20,5 +20,4 @@ node_modules
 *.log
 *.csv
 firebaseServiceAccount.json
-googleServiceAccount.json
 cloud_sql_proxy
