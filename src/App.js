@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Redirect, Route, Router, Switch } from 'react-router-dom'
-import history from './history'
-import { auth, db } from './database'
+import { ApolloProvider } from 'react-apollo'
 
+import history from './history'
+import client from './client'
+import { auth } from './database'
 import Organisations from './components/Organisations'
 import OrganisationForm from './components/OrganisationForm'
 
@@ -46,7 +48,7 @@ class App extends Component {
         user ? (
           <Redirect to={{ pathname: '/organisations' }}/>
         ) : (
-          <Component {...renderProps} auth={auth} db={db} admin={admin} user={user} />
+          <Component {...renderProps} auth={auth} admin={admin} user={user} />
         )
       )}/>
     )
@@ -54,7 +56,7 @@ class App extends Component {
     const MatchWhenAuthorized = ({component: Component, ...rest}) => (
       <Route {...rest} render={renderProps => (
         user ? (
-          <Component {...renderProps} auth={auth} db={db} admin={admin} user={user} />
+          <Component {...renderProps} auth={auth} admin={admin} user={user} />
         ) : (
           <Redirect to={{
             pathname: '/login',
@@ -65,39 +67,40 @@ class App extends Component {
     )
 
     return (
-      <Router history={history}>
-        <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="pull-right">
-              {user ? (<div><button className="btn btn-default" onClick={this.signOut}>Sign Out</button></div>) : null}
+      <ApolloProvider client={client}>
+        <Router history={history}>
+          <div className="App">
+            <div className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <div className="pull-right">
+                {user ? (<div><button className="btn btn-default" onClick={this.signOut}>Sign Out</button></div>) : null}
+              </div>
             </div>
+            <main className="container" style={{paddingTop: '1rem'}}>
+              {
+                isLoadingUser
+                  ? <Callback/>
+                  : (
+                    <Switch>
+                      {/* <Route path="/home" render={(props) => <Home auth={auth} {...props} />} /> */}
+                      <MatchWhenNotAuthorized path="/login" component={LogIn} />
+                      <MatchWhenNotAuthorized path="/signup" component={SignUp} />
+                      <MatchWhenAuthorized path="/form" component={OrganisationForm} />
+                      <MatchWhenAuthorized path="/organisations" component={Organisations} />
+                      <Route path="/" render={renderProps => (
+                        user ? (
+                          <Organisations {...renderProps} auth={auth} admin={admin} user={user} />
+                        )
+                        : <Home />
+                      )}/>
+                      {/* <MatchWhenAuthorized pattern="/profile" component={Profile} /> */}
+                    </Switch>
+                  )
+              }
+            </main>
           </div>
-          <main className="container" style={{paddingTop: '1rem'}}>
-            {
-              isLoadingUser
-                ? <Callback/>
-                : (
-                  <Switch>
-                    {/* <Route path="/home" render={(props) => <Home auth={auth} {...props} />} /> */}
-                    <MatchWhenNotAuthorized path="/login" component={LogIn} />
-                    <MatchWhenNotAuthorized path="/signup" component={SignUp} />
-                    <MatchWhenAuthorized path="/form" component={OrganisationForm} />
-                    <MatchWhenAuthorized path="/organisations" component={Organisations} />
-                    <Route path="/" render={renderProps => (
-                      user ? (
-                        <Organisations {...renderProps} auth={auth} db={db} admin={admin} user={user} />
-                      ) : (
-                        <Home db={db} />
-                      )
-                    )}/>
-                    {/* <MatchWhenAuthorized pattern="/profile" component={Profile} /> */}
-                  </Switch>
-                )
-            }
-          </main>
-        </div>
-      </Router>
+        </Router>
+      </ApolloProvider>
     )
   }
 }
